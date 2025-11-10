@@ -1,5 +1,8 @@
 from __future__ import print_function
 
+import threading
+
+from flask import Flask, render_template, redirect, url_for
 import itertools
 import os.path
 import time
@@ -14,6 +17,7 @@ import io
 
 #Permissions reads all files can only write to files it creates
 SCOPES = ['https://www.googleapis.com/auth/drive.readonly']
+app = Flask(__name__)
 
 def getGoogleDrive():
     creds = None
@@ -54,20 +58,58 @@ def getFolder():
             print(f"{item['name']}  (ID: {item['id']})")
 
 
-
 def StartTimer():
-    start = time.time()
-    last_minute = -1
-    while True:
-        elapsed = time.time() - start
-        minute = int(elapsed // 60)
-        second = int(elapsed % 60)
-        if minute != last_minute & minute != 0:
-            print(f"{minute} minutes")
-            last_minute = minute
+    def runTimer():
+        start = time.time()
+        last_minute = -1
+        while True:
+            elapsed = time.time() - start
+            minute = int(elapsed // 60)
+            second = int(elapsed % 60)
+            if minute != last_minute & minute != 0:
+                print(f"{minute} minutes")
+                last_minute = minute
 
+    #How the timer runs in the background
+    thread = threading.Thread(target=runTimer, daemon=True)
+    thread.start()
+    return "Timer Started"
+
+
+@app.route('/')
+def index():
+    return render_template('Welcome.html')
+
+@app.route('/startTimer')
+def start_timer():
+    result = StartTimer()
+
+    return redirect('/Injects')
+
+app = Flask(__name__)
+start_time = None
+
+@app.route('/')
+def index():
+    return render_template('Injects.html', start_time=start_time)
+
+@app.route('/start')
+def start_timer():
+    global start_time
+    start_time = time.time()
+    return redirect(url_for('Injects'))
+
+
+@app.route('/Injects')
+def next_page():
+    return "<h1>Timer Started!</h1><p>Check your console for updates.</p>"
 
 if __name__ == '__main__':
-    #service = getGoogleDrive()
-    #getFolder()
-    StartTimer()
+    app.run(debug=True)
+
+
+
+
+    ##cookies keep timer local time
+    ##timer not showing
+    ##
