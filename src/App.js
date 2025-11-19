@@ -7,6 +7,7 @@ function App() {
     <div className="App">
       <Header/>
       <HeroArea/>
+      {/*https://www.youtube.com/watch?v=fJJz8w-HL94*/}
       <FeatureArea/>
     </div>
   );
