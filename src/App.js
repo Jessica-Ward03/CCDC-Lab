@@ -1,16 +1,18 @@
-import './App.css';
-import Header from './components/Header';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./Header/Header";
+import Home from "./Pages/Home";
+import Injects from "./Pages/Injects";
+import ScoreBoard from "./Pages/ScoreBoard";
 
-
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <Header/>
-      <HeroArea/>
-      {/*https://www.youtube.com/watch?v=fJJz8w-HL94*/}
-      <FeatureArea/>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/Injects" element={<Injects />} />
+        <Route path="/ScoreBoard" element={<ScoreBoard />} />
+      </Routes>
+    </Router>
   );
 }
-
-export default App;
