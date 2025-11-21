@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header/Header";
 import Home from "./Pages/Home";
 import Injects from "./Pages/Injects";
-import Scoreboard from "./Pages/Scoreboard";
+import Scoreboard from "./Pages/ScoreBoard";
 
 export default function App() {
   return (
