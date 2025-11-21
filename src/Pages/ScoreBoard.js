@@ -1,3 +1,3 @@
-export default function ScoreBoard() {
-  return <h1>Score Board</h1>;
+export default function Scoreboard() {
+  return <h1>Scoreboard</h1>;
 }

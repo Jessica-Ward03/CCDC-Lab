@@ -5,7 +5,7 @@ export default function Header() {
     <header style={styles.header}>
       <Link to="/" style={styles.button}>Home</Link>
       <Link to="/Injects" style={styles.button}>Injects</Link>
-      <Link to="/ScoreBoard" style={styles.button}>Score Board</Link>
+      <Link to="/Scoreboard" style={styles.button}>Scoreboard</Link>
     </header>
   );
 }

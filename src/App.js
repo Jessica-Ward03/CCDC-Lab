@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./Header/Header";
 import Home from "./Pages/Home";
 import Injects from "./Pages/Injects";
-import ScoreBoard from "./Pages/ScoreBoard";
+import Scoreboard from "./Pages/Scoreboard";
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Injects" element={<Injects />} />
-        <Route path="/ScoreBoard" element={<ScoreBoard />} />
+        <Route path="/Scoreboard" element={<Scoreboard />} />
       </Routes>
     </Router>
   );
