@@ -63,8 +63,8 @@ export default function Scoreboard() {
 
 
   return (
-    <>
-  <h1>Scoreboard</h1>
+    <div className="scoreboardPage">
+    <h1>Scoreboard</h1>
 
         <div>
       <table>
@@ -88,7 +88,7 @@ export default function Scoreboard() {
         </tbody>
       </table>
     </div>
-    
+
   <div>
       <table>
         <thead>
@@ -164,6 +164,6 @@ export default function Scoreboard() {
         </tbody>
       </table>
     </div>
-    </>
+  </div>
   );
 }
