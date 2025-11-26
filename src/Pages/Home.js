@@ -52,7 +52,7 @@ function TabGroup() {
           <h4>What is CCDC?</h4>
 
           <p>
-          Its a cyber security competion where students work to manage and protect an existing network.
+          Its a cyber security Competition where students work to manage and protect an existing network.
           </p>
 
           <a href="https://www.nationalccdc.org/about.html" target="_blank" rel="noopener noreferrer">
