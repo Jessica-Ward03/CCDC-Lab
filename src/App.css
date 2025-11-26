@@ -1,43 +1,30 @@
-/* src/components/Header.css */
-
 .app-header {
-  /* 1. Set the background color to blue */
-  background-color: #007bff; /* A nice, standard Bootstrap blue */
+  background-color: crimson; 
   
-  /* 2. Set the text color to white for the entire header */
   color: white; 
   
-  /* Basic layout for a modern header */
   display: flex;
-  justify-content: space-between; /* Pushes the title to the left, links to the right */
-  align-items: center; /* Centers items vertically */
+  justify-content: space-between;
+  align-items: center;
   padding: 10px 20px;
 }
 
 .header-title a {
-  /* Styles for the main title/logo link */
   font-size: 1.5rem;
   font-weight: bold;
 }
 
 .header-nav ul {
-  /* Remove list styling like bullet points and padding */
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
-  gap: 20px; /* Space between the links */
+  gap: 20px;
 }
 
 .header-nav a {
-  /* Styles for all navigation links */
-  color: white; /* **Crucial: Makes the link text white** */
-  text-decoration: none; /* Removes the default underline */
+  color: white;
+  text-decoration: none; 
   padding: 5px 10px;
 }
 
-.header-nav a:hover {
-  /* Optional: Add a hover effect for user feedback */
-  background-color: rgba(255, 255, 255, 0.1); /* Slight white transparency on hover */
-  border-radius: 4px;
-}
