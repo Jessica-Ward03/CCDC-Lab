@@ -20,7 +20,7 @@ const styles = {
   },
   button: {
     padding: "0.5rem 1rem",
-    background: "blue",
+    background: "crimson",
     color: "white",
     borderRadius: "6px",
     textDecoration: "none",
