@@ -1,0 +1,25 @@
+Notes:
+
+Always wrap your component in MemoryRouter if it uses <Link> or <Route>.
+
+Use data-testid to make querying elements easy.
+
+Running the tests
+Make sure you have Jest and React Testing Library installed:
+
+npm install --save-dev jest @testing-library/react @testing-library/jest-dom
+In package.json, you should have:
+
+"scripts": {
+  "test": "react-scripts test"
+}
+Run the tests:
+
+npm test
+It will automatically find files with .test.jsx or .spec.jsx and run them.
+
+You can also run a single test file:
+
+npm test -- Home.test.js
+
+Use data-testid for elements you need to check.

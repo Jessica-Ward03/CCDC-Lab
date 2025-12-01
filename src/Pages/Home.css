@@ -35,3 +35,13 @@
     margin-left: 130px;
     margin-bottom: 16px;
 }
+
+.homePageSubButton button{
+  background-color: crimson;   
+  color: white;               
+  padding: 12px 24px;         
+  font-size: 18px;             
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
