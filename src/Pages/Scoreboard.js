@@ -3,59 +3,74 @@ import "./Scoreboard.css";
 
 
 export default function Scoreboard() {
-  {/*All Hardcoded vars will need to be changed*/}
+  /*TODO All Hardcoded vars will need to be changed*/
   var Score = 0
-  var serviceOneUp = true;
-  var serviceTwoUp = false;
-  var serviceThreeUp = true;
-  var serviceFourUp = true;
-  var serviceFiveUp = true;
-  var serviceSixUp = true;
-  var serviceSevenUp = true;
-  var serviceOneTime = 120;
-  var serviceTwoTime = 20;
-  var serviceThreeTime = 120;
-  var serviceFourTime = 120;
-  var serviceFiveTime = 120;
-  var serviceSixTime = 120;
-  var serviceSevenTime = 60;
+  var service_ecomhttp_Up = true;
+  var service_mailpop3_Up = false;
+  var service_2022ftp_Up = true;
+  var service_addns_Up = true;
+  var service_splunkhttp_Up = true;
+  var service_2019http_Up = true;
+  var service_mailsmtp_Up = true;
+  var service_ecomhttp_Time = 120;
+  var service_mailpop3_Time = 20;
+  var service_2022ftp_Time = 120;
+  var service_addns_Time = 120;
+  var service_splunkhttp_Time = 120;
+  var service_2019http_Time = 120;
+  var service_mailsmtp_Time = 60;
   var upServices = 0;
-  var services = [serviceOneUp, serviceTwoUp,serviceThreeUp, serviceFourUp,serviceFiveUp, serviceSixUp, serviceSevenUp];
-  var servicesTimes = [serviceOneTime, serviceTwoTime,serviceThreeTime, serviceFourTime,serviceFiveTime, serviceSixTime, serviceSevenTime];
+  var services = [service_ecomhttp_Up, service_mailpop3_Up,service_2022ftp_Up, service_addns_Up,service_splunkhttp_Up, service_2019http_Up, service_mailsmtp_Up];
+  var servicesTimes = [service_ecomhttp_Time, service_mailpop3_Time,service_2022ftp_Time, service_addns_Time,service_splunkhttp_Time, service_2019http_Time, service_mailsmtp_Time];
+  
+  /*TODO update to actually cal. total time running*/
   var totalTime = 120;
 
 
   function getScore() {
-    //placeholder until we add the actual scoreboard
+    /*TODO update to actually cal. score*/
     var x = 19880;
     return x;
   }
+
+  /*Expects the serviceUp to be set t true or false to see if service is currently up
+    Returns the image for if service is up or down.
+  */
   function getScoreImage(serviceUp) {
-    //placeholder for getting up services
-    if (serviceUp == true){
+    if (serviceUp === true){
       return "./GreenArrow.png"
     }else{
       return "./RedArrow.png"
     }
   }
+
+  /*Expects the serviceUp to be set to true or false to see if service is currently up
+    Returns the image alt for if service is up or down.
+  */
   function getScoreImageAlt(serviceUp) {
-    //placeholder for getting up services
-    if (serviceUp == true){
+    if (serviceUp === true){
       return "Green Arrow"
     }else{
       return "Red Arrow"
     }
   }
+
+  /*Expects the services to have all services listed and upServices to be 0
+    Returns the number of services that are currently up.
+  */
   function getUpServices(services, upServices) {
-    //placeholder for getting up services
     for(var i = 0; i < services.length; i++){
       var service = services[i];
-      if (service == true){
+      if (service === true){
         upServices++;
       }
     }
     return upServices
   }
+
+  /*Expects the services times amd totalTime to be set 
+    Returns the percent of time the service has been up.
+  */
   function getUpTimes(service, totalTime) {
     return Math.round((service / totalTime)* 100);
   }
@@ -71,7 +86,6 @@ export default function Scoreboard() {
         <thead>
           <tr>
             <th>Team</th>
-            {/*ToDo find out all service display names*/}
             <th>Services Up</th>
             <th>Services Down</th>
             <th>Total Points</th>
@@ -94,14 +108,13 @@ export default function Scoreboard() {
         <thead>
           <tr>
             <th>Team</th>
-            {/*ToDo find out all service display names*/}
-            <th>ServiceOne</th>
-            <th>ServiceTwo</th>
-            <th>ServiceThree</th>
-            <th>ServiceFour</th>
-            <th>ServiceFive</th>
-            <th>ServiceSix</th>
-            <th>ServiceSeven</th>
+            <th>ecom-http</th>
+            <th>mail-pop3</th>
+            <th>2022-ftp</th>
+            <th>ad-dns</th>
+            <th>splunk-http</th>
+            <th>2019-http</th>
+            <th>mail-smtp</th>
           </tr>
         </thead>
 
@@ -109,25 +122,25 @@ export default function Scoreboard() {
           <tr>
             <td>IUS</td>
             <td>
-              <img src={getScoreImage(serviceOneUp)} alt={getScoreImageAlt(serviceOneUp)} width="80"/>
+              <img src={getScoreImage(service_ecomhttp_Up)} alt={getScoreImageAlt(service_ecomhttp_Up)} width="80"/>
             </td>
             <td>
-              <img src={getScoreImage(serviceTwoUp)} alt={getScoreImageAlt(serviceTwoUp)} width="80"/>
+              <img src={getScoreImage(service_mailpop3_Up)} alt={getScoreImageAlt(service_mailpop3_Up)} width="80"/>
             </td>
             <td>
-              <img src={getScoreImage(serviceThreeUp)} alt={getScoreImageAlt(serviceThreeUp)} width="80"/>
+              <img src={getScoreImage(service_2022ftp_Up)} alt={getScoreImageAlt(service_2022ftp_Up)} width="80"/>
             </td>
             <td>
-              <img src={getScoreImage(serviceFourUp)} alt={getScoreImageAlt(serviceFourUp)} width="80"/>
+              <img src={getScoreImage(service_addns_Up)} alt={getScoreImageAlt(service_addns_Up)} width="80"/>
             </td>
             <td>
-              <img src={getScoreImage(serviceFiveUp)} alt={getScoreImageAlt(serviceFiveUp)} width="80"/>
+              <img src={getScoreImage(service_splunkhttp_Up)} alt={getScoreImageAlt(service_splunkhttp_Up)} width="80"/>
             </td>
             <td>
-              <img src={getScoreImage(serviceSixUp)} alt={getScoreImageAlt(serviceSixUp)} width="80"/>
+              <img src={getScoreImage(service_2019http_Up)} alt={getScoreImageAlt(service_2019http_Up)} width="80"/>
             </td>
             <td>
-              <img src={getScoreImage(serviceSevenUp)} alt={getScoreImageAlt(serviceSevenUp)} width="80"/>
+              <img src={getScoreImage(service_mailsmtp_Up)} alt={getScoreImageAlt(service_mailsmtp_Up)} width="80"/>
             </td>
           </tr>
         </tbody>
@@ -139,14 +152,13 @@ export default function Scoreboard() {
         <thead>
           <tr>
             <th>Team</th>
-            {/*ToDo find out all service display names*/}
-            <th>ServiceOne</th>
-            <th>ServiceTwo</th>
-            <th>ServiceThree</th>
-            <th>ServiceFour</th>
-            <th>ServiceFive</th>
-            <th>ServiceSix</th>
-            <th>ServiceSeven</th>
+            <th>ecom-http</th>
+            <th>mail-pop3</th>
+            <th>2022-ftp</th>
+            <th>ad-dns</th>
+            <th>splunk-http</th>
+            <th>2019-http</th>
+            <th>mail-smtp</th>
           </tr>
         </thead>
 

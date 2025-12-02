@@ -5,8 +5,9 @@ TODO write this :) but
 for now here are what pages currently look like
 
 
-Newest added as of 11/30/2025 (with the latest updates listed first)
+Newest added as of 12/1/2025 (with the latest updates listed first)
 
+ - Service names added to scoreboard
  - A working timer and start buttons
  - Scoreboard mockup
  - Home page
