@@ -1,3 +1,9 @@
+import "./Injects.css";
+
 export default function Injects() {
-  return <h1>Injects</h1>;
+  return(
+  <div className="injectPage">
+    <h1>Injects</h1>
+  </div>
+  );
 }

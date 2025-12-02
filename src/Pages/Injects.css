@@ -1,0 +1,19 @@
+.injectPage table {
+    border: 2px solid crimson;
+    width: 800px;
+    height: 200px;
+    margin-bottom: 30px;
+    margin-left: 50px;
+}
+
+.injectPage h1 {
+    margin-left: 20px;
+}
+
+.injectPage th {
+    border-bottom: 1px solid black;
+}
+
+.injectPage td {
+    text-align: center;
+}
