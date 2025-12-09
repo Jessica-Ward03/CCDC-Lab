@@ -12,20 +12,28 @@ export default function Injects() {
     const [allInjects, setInjects] = useState([]); //Holds injects added to the page
     const [submitted, setSubmitted] = useState({}); //Checks whether inject has been submitted
 
+    useEffect(() => { //Saves page data.
+        const savedInjects = JSON.parse(localStorage.getItem("savedInjectsIds"));
+        const saveSubmitted = JSON.parse(localStorage.getItem("savedSubmitted"));
+        if (savedInjects) setInjects(savedInjects);
+        if (saveSubmitted) setSubmitted(saveSubmitted);
+    }, []);
 
     useEffect(() => { //Uses reset button to clear injects
         const saved = JSON.parse(localStorage.getItem("labTimer"));
         if (!isRunning && saved?.endTime === 0 && secondsLeft === 600){
             setInjects([]);
             setSubmitted({});
-            localStorage.removeItem("savedInjectsIds");
-            localStorage.removeItem("savedSubmitted");
+            localStorage.clear();
+            window.location.reload();
         }
     },[secondsLeft, isRunning]);
 
     function addInjects() { //Call this to add more injects
         if (allInjects.length < injects.length) {
-            setInjects([...allInjects, injects[allInjects.length]]);
+            const injectList = [...allInjects, injects[allInjects.length]];
+            setInjects(injectList);
+            localStorage.setItem("savedInjectsIds", JSON.stringify(injectList));
         }
     }
 
@@ -38,10 +46,12 @@ export default function Injects() {
     function handleUpload(injectId, event) { //This is how users upload
         const file = event.target.files[0];
         if (file) {
-            setSubmitted({
+            const newSubmission = {
                 ...submitted,
                 [injectId]: true
-            });
+            };
+            setSubmitted(newSubmission);
+            localStorage.setItem("savedSubmitted", JSON.stringify(newSubmission));
         }
     }
 
