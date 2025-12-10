@@ -4,6 +4,11 @@
 TODO write this :) but 
 for now here are what pages currently look like
 
+TODO
+- Add difficulty slider 
+- Inject completed button
+- Injects completed on inject page
+- Write injects
 
 Newest added as of 12/1/2025 (with the latest updates listed first)
 
@@ -26,4 +31,3 @@ Notes:
 ![alt text](image-3.png)
 
 ![alt text](image-5.png)
-
