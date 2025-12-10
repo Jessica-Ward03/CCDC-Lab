@@ -1,10 +1,21 @@
 
 import "./Scoreboard.css";
+import React, { useState, useEffect } from "react";
+import Timer from "../Time/Timer";
+import { useTimer } from "../Time/TimerContext";
 
 
 export default function Scoreboard() {
   /*TODO All Hardcoded vars will need to be changed*/
+  const { secondsLeft } = useTimer();
+  
+  /*TODO update to pass in the time competition was started with*/
+  const totalTimeCompetition = 600;
+
+
   var Score = 0
+
+  /*TODO pass in the actual if up or down might need to do something like with the timer*/
   var service_ecomhttp_Up = true;
   var service_mailpop3_Up = false;
   var service_2022ftp_Up = true;
@@ -12,6 +23,7 @@ export default function Scoreboard() {
   var service_splunkhttp_Up = true;
   var service_2019http_Up = true;
   var service_mailsmtp_Up = true;
+  /*TODO pass in the actual up times this will fix the odd showing percentages*/
   var service_ecomhttp_Time = 120;
   var service_mailpop3_Time = 20;
   var service_2022ftp_Time = 120;
@@ -23,9 +35,17 @@ export default function Scoreboard() {
   var services = [service_ecomhttp_Up, service_mailpop3_Up,service_2022ftp_Up, service_addns_Up,service_splunkhttp_Up, service_2019http_Up, service_mailsmtp_Up];
   var servicesTimes = [service_ecomhttp_Time, service_mailpop3_Time,service_2022ftp_Time, service_addns_Time,service_splunkhttp_Time, service_2019http_Time, service_mailsmtp_Time];
   
-  /*TODO update to actually cal. total time running*/
-  var totalTime = 120;
 
+  const elapsed = totalTimeCompetition - secondsLeft;
+
+  /*Shows Time as 00:00:00*/
+  function formatTime(sec) {
+    const h = Math.floor(sec / 3600);
+    const m = Math.floor((sec % 3600) / 60);
+    const s = sec % 60;
+
+    return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
+  }
 
   function getScore() {
     /*TODO update to actually cal. score*/
@@ -71,8 +91,8 @@ export default function Scoreboard() {
   /*Expects the services times amd totalTime to be set 
     Returns the percent of time the service has been up.
   */
-  function getUpTimes(service, totalTime) {
-    return Math.round((service / totalTime)* 100);
+  function getUpTimes(service, totalTimeCompetition) {
+    return Math.round((service / totalTimeCompetition)* 100);
   }
   
 
@@ -81,7 +101,7 @@ export default function Scoreboard() {
     <div className="scoreboardPage">
     <h1>Scoreboard</h1>
 
-        <div>
+      <div>
       <table>
         <thead>
           <tr>
@@ -98,7 +118,7 @@ export default function Scoreboard() {
             <td>{getUpServices(services, upServices)}</td>
             <td>{services.length - getUpServices(services, upServices)}</td>
             <td>{getScore()}</td>
-          </tr>
+            </tr>
         </tbody>
       </table>
     </div>
@@ -165,13 +185,13 @@ export default function Scoreboard() {
         <tbody>
           <tr>
             <td>IUS</td>
-            <td>{getUpTimes(servicesTimes[0], totalTime)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[1], totalTime)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[2], totalTime)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[3], totalTime)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[4], totalTime)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[5], totalTime)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[6], totalTime)+ "%"}</td>
+            <td>{getUpTimes(servicesTimes[0], elapsed)+ "%"}</td>
+            <td>{getUpTimes(servicesTimes[1], elapsed)+ "%"}</td>
+            <td>{getUpTimes(servicesTimes[2], elapsed)+ "%"}</td>
+            <td>{getUpTimes(servicesTimes[3], elapsed)+ "%"}</td>
+            <td>{getUpTimes(servicesTimes[4], elapsed)+ "%"}</td>
+            <td>{getUpTimes(servicesTimes[5], elapsed)+ "%"}</td>
+            <td>{getUpTimes(servicesTimes[6], elapsed)+ "%"}</td>
           </tr>
         </tbody>
       </table>
