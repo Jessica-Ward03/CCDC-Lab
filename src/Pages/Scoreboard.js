@@ -98,9 +98,11 @@ export default function Scoreboard() {
 
   return (
     <div className="scoreboardPage">
-    <h1>Scoreboard</h1>
-
-      <div>
+      <img 
+      src="Header.png" alt="IUS CCDC Banner" class="center">
+      </img>
+      <h1>Scoreboard</h1>
+      <div style={{ display: 'flex', justifyContent: 'center'}}>
       <table>
         <thead>
           <tr>
@@ -122,7 +124,7 @@ export default function Scoreboard() {
       </table>
     </div>
 
-  <div>
+  <div style={{ display: 'flex', justifyContent: 'center'}}>
       <table>
         <thead>
           <tr>
@@ -166,7 +168,7 @@ export default function Scoreboard() {
       </table>
       </div>
 
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center'}}>
       <table>
         <thead>
           <tr>
