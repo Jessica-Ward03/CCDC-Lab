@@ -18,7 +18,7 @@ export default function Header() {
             fontSize: "16px",
             cursor: "pointer",
             padding: "0.5rem 1rem",
-            background: "crimson",
+            background: "#7d120b",
             fontSize: "18px",
             color: "white",
             borderRadius: "6px",
@@ -43,7 +43,7 @@ const styles = {
   },
   button: {
     padding: "0.5rem 1rem",
-    background: "crimson",
+    background: "#7d120b",
     fontSize: "18px",
     color: "white",
     borderRadius: "6px",
