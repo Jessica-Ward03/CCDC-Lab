@@ -6,16 +6,16 @@ import { useTimer } from "../Time/TimerContext";
 
 
 export default function Scoreboard() {
-  /*TODO All Hardcoded vars will need to be changed*/
+  //TODO All Hardcoded vars will need to be changed
   const { secondsLeft } = useTimer();
   
-  /*TODO update to pass in the time competition was started with*/
+  //TODO update to pass in the time competition was started with
   const totalTimeCompetition = 600;
 
 
   var Score = 0
 
-  /*TODO pass in the actual if up or down might need to do something like with the timer*/
+  //TODO pass in the actual if up or down might need to do something like with the timer
   var service_ecomhttp_Up = true;
   var service_mailpop3_Up = false;
   var service_2022ftp_Up = true;
@@ -23,7 +23,7 @@ export default function Scoreboard() {
   var service_splunkhttp_Up = true;
   var service_2019http_Up = true;
   var service_mailsmtp_Up = true;
-  /*TODO pass in the actual up times this will fix the odd showing percentages*/
+  //TODO pass in the actual up times this will fix the odd showing percentages
   var service_ecomhttp_Time = 120;
   var service_mailpop3_Time = 20;
   var service_2022ftp_Time = 120;
@@ -38,7 +38,7 @@ export default function Scoreboard() {
 
   const elapsed = totalTimeCompetition - secondsLeft;
 
-  /*Shows Time as 00:00:00*/
+  //Shows Time as 00:00:00
   function formatTime(sec) {
     const h = Math.floor(sec / 3600);
     const m = Math.floor((sec % 3600) / 60);
@@ -48,14 +48,13 @@ export default function Scoreboard() {
   }
 
   function getScore() {
-    /*TODO update to actually cal. score*/
+    //TODO update to actually cal. score
     var x = 19880;
     return x;
   }
 
-  /*Expects the serviceUp to be set t true or false to see if service is currently up
-    Returns the image for if service is up or down.
-  */
+  //Expects the serviceUp to be set t true or false to see if service is currently up
+  //Returns the image for if service is up or down.
   function getScoreImage(serviceUp) {
     if (serviceUp === true){
       return "./GreenArrow.png"
@@ -64,9 +63,9 @@ export default function Scoreboard() {
     }
   }
 
-  /*Expects the serviceUp to be set to true or false to see if service is currently up
-    Returns the image alt for if service is up or down.
-  */
+  //Expects the serviceUp to be set to true or false to see if service is currently up
+  //Returns the image alt for if service is up or down.
+
   function getScoreImageAlt(serviceUp) {
     if (serviceUp === true){
       return "Green Arrow"
@@ -75,9 +74,9 @@ export default function Scoreboard() {
     }
   }
 
-  /*Expects the services to have all services listed and upServices to be 0
-    Returns the number of services that are currently up.
-  */
+  //Expects the services to have all services listed and upServices to be 0
+  //Returns the number of services that are currently up.
+  
   function getUpServices(services, upServices) {
     for(var i = 0; i < services.length; i++){
       var service = services[i];
@@ -88,9 +87,9 @@ export default function Scoreboard() {
     return upServices
   }
 
-  /*Expects the services times amd totalTime to be set 
-    Returns the percent of time the service has been up.
-  */
+  //Expects the services times amd totalTime to be set 
+  //Returns the percent of time the service has been up.
+  
   function getUpTimes(service, totalTimeCompetition) {
     return Math.round((service / totalTimeCompetition)* 100);
   }
@@ -99,9 +98,11 @@ export default function Scoreboard() {
 
   return (
     <div className="scoreboardPage">
-    <h1>Scoreboard</h1>
-
-      <div>
+      <img 
+      src="Header.png" alt="IUS CCDC Banner" class="center">
+      </img>
+      <h1>Scoreboard</h1>
+      <div style={{ display: 'flex', justifyContent: 'center'}}>
       <table>
         <thead>
           <tr>
@@ -123,7 +124,7 @@ export default function Scoreboard() {
       </table>
     </div>
 
-  <div>
+  <div style={{ display: 'flex', justifyContent: 'center'}}>
       <table>
         <thead>
           <tr>
@@ -167,7 +168,7 @@ export default function Scoreboard() {
       </table>
       </div>
 
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center'}}>
       <table>
         <thead>
           <tr>

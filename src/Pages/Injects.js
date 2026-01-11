@@ -57,6 +57,9 @@ export default function Injects() {
 
     return (
         <div style={{ alignItems: "center", textAlign: "center" }}>
+            <img 
+            src="Header.png" alt="IUS CCDC Banner" class="center">
+            </img>
             <h1>Injects</h1>
             <button onClick={addInjects}>Add Injects</button>
             <div //This thing is the blue box that contains the injects

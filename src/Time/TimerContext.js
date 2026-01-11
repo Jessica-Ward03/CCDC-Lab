@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 
 
-/*Thanks to Geeks for Geeks https://www.geeksforgeeks.org/reactjs/creating-a-timer-component-with-useeffect-hook-in-react/ for the timer */
+//Thanks to Geeks for Geeks https://www.geeksforgeeks.org/reactjs/creating-a-timer-component-with-useeffect-hook-in-react/ for the timer
 
 
 

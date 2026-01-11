@@ -1,33 +1,20 @@
-# CCDC-Lab
+# IUS CCDC-Lab
+
+![IUS CCDC LAB](image-4.png)
+
+## Welcome to the IUS CCDC Lab!
 
 
-TODO write this :) but 
-for now here are what pages currently look like
+#### What is CCDC?
 
-TODO
-- Add difficulty slider 
-- Inject completed button
-- Injects completed on inject page
-- Write injects
+Its a cyber security competition where students work to manage and protect an existing network.
 
-Newest added as of 12/1/2025 (with the latest updates listed first)
-
- - Service names added to scoreboard
- - A working timer and start buttons
- - Scoreboard mockup
- - Home page
+[Find out more about CCDC here!](https://www.nationalccdc.org/about.html)
 
 
-Notes: 
+#### What is the IUS CCDC Lab?
 
-- The scoreboard currently does not update but is a placeholder for once we have that set up.
-
-![alt text](image.png)
-
-![alt text](image-1.png)
-
-![alt text](image-2.png)
-
-![alt text](image-3.png)
-
-![alt text](image-5.png)
+This is a place for IUS students to practice their skills in cybersecurity.
+It allows them to practice similar skills as in the CCDC competition. 
+You can run the lab by going to the physical CSG lab at IUS. 
+Once you are there see the links below to get started on the lab.

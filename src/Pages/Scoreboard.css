@@ -1,5 +1,6 @@
 
 .scoreboardPage table {
+    text-align: center;
     border: 2px solid crimson;
     width: 800px;
     height: 200px;
@@ -9,9 +10,11 @@
 
 .scoreboardPage h1 {
     margin-left: 20px;
+    text-align: center;
 }
 
 .scoreboardPage th {
+    text-align: center;
     border-bottom: 1px solid black;
 }
 

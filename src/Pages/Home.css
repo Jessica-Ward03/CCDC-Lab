@@ -37,11 +37,20 @@
 }
 
 .homePageSubButton button{
-  background-color: crimson;   
+  background-color: #7d120b;   
   color: white;               
   padding: 12px 24px;         
   font-size: 18px;             
   border: none;
   border-radius: 6px;
   cursor: pointer;
+}
+
+.center{
+    text-align: center;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 40%;
 }

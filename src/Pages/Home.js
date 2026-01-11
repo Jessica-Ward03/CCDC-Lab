@@ -45,13 +45,13 @@ function TabGroup({ setTutorialMode, startTimer }) {
               This is a lab that models the CCDC lab. This is so that students can learn how to manage and protect a network. It also allows CCDC teams to practice for the CCDC.
             </p>
             <p>
-              This lab was created by Jonah Facer, Andrew Nale, John Aaron, and Jessica Ward
+              This lab was created by Jonah Facer, Andrew Nale, John Aaron, and Jessica Ward.
             </p>
             <a href="https://github.com/Jessica-Ward03/CCDC-Lab" target="_blank" rel="noopener noreferrer">
               Visit our repo here!
             </a>
             <p>
-              If you are reading this section we recommend starting with our tutorial mode
+              If you are reading this section we recommend starting with our tutorial mode.
             </p>
           </div>
         );
@@ -124,12 +124,15 @@ function TabGroup({ setTutorialMode, startTimer }) {
 
 
 export default function Home() {
-  /* 0 for not defined 1 for tutorial mode 2 for non tutorial mode */
+  //0 for not defined 1 for tutorial mode 2 for non tutorial mode
       const [TutorialMode, setTutorialMode] = useState(0);
       const {startTimer} = useTimer();
   return(
-  /*Top of the Home page*/ 
+  //Top of the Home page
   <div className="homePage">
+    <img 
+    src="Header.png" alt="IUS CCDC Banner" class="center">
+    </img>
     <h1>IUS CCDC Lab</h1>
     <h2>Welcome to the IUS CCDC Lab </h2>
      <TabGroup setTutorialMode={setTutorialMode} startTimer={startTimer}/>
