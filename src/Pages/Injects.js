@@ -1,6 +1,8 @@
-import { useState } from "react";
+import {useEffect, useState} from "react";
+import { useTimer } from "../Time/TimerContext.js";
 
 export default function Injects() {
+    const {secondsLeft, isRunning } = useTimer();
     const injects = [
         { id: 1, name: "Inject 1", file: "/TestInjects/Drop_Flag_Inject.pdf" },
         { id: 2, name: "Inject 2", file: "/TestInjects/EVAL04T_-_External_Perimeter_Assessment_z1SC0e5.pdf" },
@@ -10,19 +12,46 @@ export default function Injects() {
     const [allInjects, setInjects] = useState([]); //Holds injects added to the page
     const [submitted, setSubmitted] = useState({}); //Checks whether inject has been submitted
 
+    useEffect(() => { //Saves page data.
+        const savedInjects = JSON.parse(localStorage.getItem("savedInjectsIds"));
+        const saveSubmitted = JSON.parse(localStorage.getItem("savedSubmitted"));
+        if (savedInjects) setInjects(savedInjects);
+        if (saveSubmitted) setSubmitted(saveSubmitted);
+    }, []);
+
+    useEffect(() => { //Uses reset button to clear injects
+        const saved = JSON.parse(localStorage.getItem("labTimer"));
+        if (!isRunning && saved?.endTime === 0 && secondsLeft === 600){
+            setInjects([]);
+            setSubmitted({});
+            localStorage.clear();
+            window.location.reload();
+        }
+    },[secondsLeft, isRunning]);
+
     function addInjects() { //Call this to add more injects
         if (allInjects.length < injects.length) {
-            setInjects([...allInjects, injects[allInjects.length]]);
+            const injectList = [...allInjects, injects[allInjects.length]];
+            setInjects(injectList);
+            localStorage.setItem("savedInjectsIds", JSON.stringify(injectList));
         }
     }
+
+    useEffect(() => { //This function controls the timing of when injects are deployed
+        if (isRunning && secondsLeft > 0 && secondsLeft % 10 === 0) { //Current set to deploy every 10 seconds for testing.
+            addInjects();
+        }
+    }, [secondsLeft]);
 
     function handleUpload(injectId, event) { //This is how users upload
         const file = event.target.files[0];
         if (file) {
-            setSubmitted({
+            const newSubmission = {
                 ...submitted,
                 [injectId]: true
-            });
+            };
+            setSubmitted(newSubmission);
+            localStorage.setItem("savedSubmitted", JSON.stringify(newSubmission));
         }
     }
 
