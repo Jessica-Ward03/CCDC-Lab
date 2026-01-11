@@ -124,11 +124,11 @@ function TabGroup({ setTutorialMode, startTimer }) {
 
 
 export default function Home() {
-  /* 0 for not defined 1 for tutorial mode 2 for non tutorial mode */
+  //0 for not defined 1 for tutorial mode 2 for non tutorial mode
       const [TutorialMode, setTutorialMode] = useState(0);
       const {startTimer} = useTimer();
   return(
-  /*Top of the Home page*/ 
+  //Top of the Home page
   <div className="homePage">
     <h1>IUS CCDC Lab</h1>
     <h2>Welcome to the IUS CCDC Lab </h2>
