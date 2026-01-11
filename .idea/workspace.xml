@@ -5,9 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5ce2bade-83be-4a40-84f2-3859a85bb677" name="Changes" comment="Injects page is successfully hooked up to timer. Currently for test purposes drops an inject every 10 seconds. Reset competition button now resets injects page as well.">
+      <change afterPath="$PROJECT_DIR$/public/Competiton Mode/inject01.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Competiton Mode/inject02.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Competiton Mode/inject03.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Competiton Mode/inject04.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Competiton Mode/inject05.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Competiton Mode/inject06.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Competiton Mode/inject07.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Competiton Mode/inject08.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/Tutorial Mode/inject01.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/Injects.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Injects.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Time/TimerContext.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Time/TimerContext.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,41 +71,43 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Flask server.CCDC-Lab.executor&quot;: &quot;Run&quot;,
-    &quot;Flask server.Flask (InjectTimer.py).executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.Injects.html.executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.Web.html.executor&quot;: &quot;Run&quot;,
-    &quot;JavaScript Debug.Welcome.html.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.Timer.js.executor&quot;: &quot;Run&quot;,
-    &quot;Python.InjectTimer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.PDFViewer.executor&quot;: &quot;Run&quot;,
-    &quot;Python.te.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/jessi/PycharmProjects/CCDC-Lab&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\jtyle\\AppData\\Local\\Programs\\WebStorm\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Flask server.CCDC-Lab.executor": "Run",
+    "Flask server.Flask (InjectTimer.py).executor": "Run",
+    "JavaScript Debug.Injects.html.executor": "Run",
+    "JavaScript Debug.Web.html.executor": "Run",
+    "JavaScript Debug.Welcome.html.executor": "Run",
+    "Node.js.Timer.js.executor": "Run",
+    "Python.InjectTimer.executor": "Run",
+    "Python.PDFViewer.executor": "Run",
+    "Python.te.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/jtyle/WebstormProjects/CCDC-Lab/public/Tutorial Mode",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Users\\jtyle\\AppData\\Local\\Programs\\WebStorm\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\public\Tutorial Mode" />
+      <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\public\Competiton Mode" />
       <recent name="C:\Users\jessi\PycharmProjects\CCDC-Lab" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\public\Competiton Mode" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\public" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src\TestInjects" />
       <recent name="C:\Users\jessi\PycharmProjects\CCDC-Lab\Docs" />
       <recent name="C:\Users\jessi\PycharmProjects\CCDC-Lab" />
-      <recent name="C:\Users\jessi\PycharmProjects\CCDC-Lab\static" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.Welcome.html">
@@ -186,6 +196,8 @@
       <workItem from="1764718773280" duration="2135000" />
       <workItem from="1764720937175" duration="2024000" />
       <workItem from="1765207529725" duration="4548000" />
+      <workItem from="1768089450270" duration="3065000" />
+      <workItem from="1768169512173" duration="4618000" />
     </task>
     <task id="LOCAL-00001" summary="Added .gitignore">
       <option name="closed" value="true" />

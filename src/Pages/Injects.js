@@ -10,7 +10,7 @@ export default function Injects() {
     ];
 
     const [allInjects, setInjects] = useState([]); //Holds injects added to the page
-    const [submitted, setSubmitted] = useState({}); //Checks whether inject has been submitted
+    const [submitted, setSubmitted] = useState({}); //Checks whether inject has been completed
 
     useEffect(() => { //Saves page data.
         const savedInjects = JSON.parse(localStorage.getItem("savedInjectsIds"));
@@ -43,16 +43,13 @@ export default function Injects() {
         }
     }, [secondsLeft]);
 
-    function handleUpload(injectId, event) { //This is how users upload
-        const file = event.target.files[0];
-        if (file) {
+    function handleCheckbox(injectId, checked) { //This is how users check off a task
             const newSubmission = {
                 ...submitted,
-                [injectId]: true
+                [injectId]: checked
             };
             setSubmitted(newSubmission);
             localStorage.setItem("savedSubmitted", JSON.stringify(newSubmission));
-        }
     }
 
     return (
@@ -77,8 +74,13 @@ export default function Injects() {
               >
                 {inj.name}
               </span>
-                            <span>{submitted[inj.id] ? "Submitted" : "Not Submitted"}</span>
-                            <input type="file" onChange={(e) => handleUpload(inj.id, e)} />
+                            <span>{submitted[inj.id] ? "Completed" : "Incomplete"}</span>
+                            <input type="checkbox"
+                                   checked={!!submitted[inj.id]}
+                                    onChange={(e) =>
+                                handleCheckbox(inj.id, e.target.checked)
+                                }
+                                />
                         </li>
                     ))}
                 </ul>
