@@ -14,8 +14,6 @@ export default function Header() {
       <button
           onClick={resetTimer} style={{
             marginLeft: "10px",
-            padding: "5px 10px",
-            fontSize: "16px",
             cursor: "pointer",
             padding: "0.5rem 1rem",
             background: "#7d120b",
