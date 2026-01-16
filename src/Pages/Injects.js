@@ -2,14 +2,14 @@ import {useEffect, useState} from "react";
 import { useTimer } from "../Time/TimerContext.js";
 
 function importAll(r) {
-    return r.keys().map((file, index) => ({
+    return r.keys().map((file, index) => ({ //This auto pulls the injects
         id: index + 1,
         name: `Inject ${index + 1}`,
         file: r(file)
     }));
 }
 const injects = importAll(
-    require.context("./CompetitionMode", false, /\.pdf$/)
+    require.context("./CompetitionMode", false, /\.pdf$/) //TODO make this object oriented programming :)
 );
 
 export default function Injects() {
