@@ -4,8 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ce2bade-83be-4a40-84f2-3859a85bb677" name="Changes" comment="Injects page is successfully hooked up to timer. Currently for test purposes drops an inject every 10 seconds. Reset competition button now resets injects page as well.">
+    <list default="true" id="5ce2bade-83be-4a40-84f2-3859a85bb677" name="Changes" comment="Added &quot;Time Left&quot; to each injects">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject01.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject01.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject02.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject02.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject03.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject03.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject04.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject04.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject05.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject05.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject06.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject06.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject07.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject07.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject08.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject08.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/TestInjects/Drop_Flag_Inject.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/TestInjects/EVAL04T_-_External_Perimeter_Assessment_z1SC0e5.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/TestInjects/Exporting_Data__Log_Files_for_Inject_Reponses_ettlk1l.pdf" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/Injects.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Injects.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -94,11 +105,11 @@
       <recent name="C:\Users\jessi\PycharmProjects\CCDC-Lab" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src\Pages" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\public\Competiton Mode" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\public" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src\TestInjects" />
       <recent name="C:\Users\jessi\PycharmProjects\CCDC-Lab\Docs" />
-      <recent name="C:\Users\jessi\PycharmProjects\CCDC-Lab" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.Welcome.html">
@@ -189,7 +200,7 @@
       <workItem from="1765207529725" duration="4548000" />
       <workItem from="1768089450270" duration="3065000" />
       <workItem from="1768169512173" duration="4618000" />
-      <workItem from="1768602465354" duration="1870000" />
+      <workItem from="1768602465354" duration="4135000" />
     </task>
     <task id="LOCAL-00001" summary="Added .gitignore">
       <option name="closed" value="true" />
@@ -255,7 +266,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764722955305</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Added &quot;Time Left&quot; to each injects">
+      <option name="closed" value="true" />
+      <created>1768604439527</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1768604439527</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +298,8 @@
     <MESSAGE value="Updated gitignore" />
     <MESSAGE value="The inject page update. Function added to add new injects and button to test it (still needs to be synced to time) and an option for users to upload files." />
     <MESSAGE value="Injects page is successfully hooked up to timer. Currently for test purposes drops an inject every 10 seconds. Reset competition button now resets injects page as well." />
-    <option name="LAST_COMMIT_MESSAGE" value="Injects page is successfully hooked up to timer. Currently for test purposes drops an inject every 10 seconds. Reset competition button now resets injects page as well." />
+    <MESSAGE value="Added &quot;Time Left&quot; to each injects" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added &quot;Time Left&quot; to each injects" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CCDC_Lab$CCDC_Lab.coverage" NAME="CCDC-Lab Coverage Results" MODIFIED="1763509058427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />

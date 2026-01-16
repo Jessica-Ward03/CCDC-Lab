@@ -1,14 +1,19 @@
 import {useEffect, useState} from "react";
 import { useTimer } from "../Time/TimerContext.js";
 
+function importAll(r) {
+    return r.keys().map((file, index) => ({
+        id: index + 1,
+        name: `Inject ${index + 1}`,
+        file: r(file)
+    }));
+}
+const injects = importAll(
+    require.context("./CompetitionMode", false, /\.pdf$/)
+);
+
 export default function Injects() {
     const {secondsLeft, isRunning } = useTimer();
-    const injects = [
-        { id: 1, name: "Inject 1", file: "/TestInjects/Drop_Flag_Inject.pdf" },
-        { id: 2, name: "Inject 2", file: "/TestInjects/EVAL04T_-_External_Perimeter_Assessment_z1SC0e5.pdf" },
-        { id: 3, name: "Inject 3", file: "/TestInjects/Exporting_Data__Log_Files_for_Inject_Reponses_ettlk1l.pdf" }
-    ];
-
     const [allInjects, setInjects] = useState([]); //Holds injects added to the page
     const [submitted, setSubmitted] = useState({}); //Checks whether inject has been completed
     const [injectDeadline, setInjectDeadline] = useState({});
