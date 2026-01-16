@@ -11,12 +11,15 @@ export default function Injects() {
 
     const [allInjects, setInjects] = useState([]); //Holds injects added to the page
     const [submitted, setSubmitted] = useState({}); //Checks whether inject has been completed
+    const [injectDeadline, setInjectDeadline] = useState({});
 
     useEffect(() => { //Saves page data.
         const savedInjects = JSON.parse(localStorage.getItem("savedInjectsIds"));
         const saveSubmitted = JSON.parse(localStorage.getItem("savedSubmitted"));
+        const savedDeadline = JSON.parse(localStorage.getItem("injectDeadline"));
         if (savedInjects) setInjects(savedInjects);
         if (saveSubmitted) setSubmitted(saveSubmitted);
+        if (savedDeadline) setInjectDeadline(savedDeadline);
     }, []);
 
     useEffect(() => { //Uses reset button to clear injects
@@ -24,6 +27,7 @@ export default function Injects() {
         if (!isRunning && saved?.endTime === 0 && secondsLeft === 600){
             setInjects([]);
             setSubmitted({});
+            setInjectDeadline({});
             localStorage.clear();
             window.location.reload();
         }
@@ -31,9 +35,16 @@ export default function Injects() {
 
     function addInjects() { //Call this to add more injects
         if (allInjects.length < injects.length) {
-            const injectList = [...allInjects, injects[allInjects.length]];
+            const nextInject = injects[allInjects.length];
+            const injectList = [...allInjects, nextInject];
             setInjects(injectList);
             localStorage.setItem("savedInjectsIds", JSON.stringify(injectList));
+            const newDeadline = {
+                ...injectDeadline,
+                [nextInject.id]: secondsLeft - 10
+            };
+            setInjectDeadline(newDeadline);
+            localStorage.setItem("injectDeadline", JSON.stringify(newDeadline));
         }
     }
 
@@ -44,6 +55,8 @@ export default function Injects() {
     }, [secondsLeft]);
 
     function handleCheckbox(injectId, checked) { //This is how users check off a task
+        const expired = secondsLeft <=  injectDeadline[injectId];
+        if (expired) return;
             const newSubmission = {
                 ...submitted,
                 [injectId]: checked
@@ -65,7 +78,9 @@ export default function Injects() {
                 }}
             >
                 <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                    {allInjects.map((inj) => ( //Map container that holds injects on the screen
+                    {allInjects.map((inj) => { //Map container that holds injects on the screen
+                        const expired = secondsLeft <= injectDeadline[inj.id];
+                        return (
                         <li
                             key={inj.id}
                             style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px"
@@ -77,15 +92,19 @@ export default function Injects() {
               >
                 {inj.name}
               </span>
-                            <span>{submitted[inj.id] ? "Completed" : "Incomplete"}</span>
-                            <input type="checkbox"
-                                   checked={!!submitted[inj.id]}
-                                    onChange={(e) =>
-                                handleCheckbox(inj.id, e.target.checked)
-                                }
-                                />
+                            <span style={{marginRight: "10px"}}>
+                            {expired ? "Time Up" : `Time Left: ${injectDeadline[inj.id] - secondsLeft}s`}
+                                </span>
+
+                                <input type = "checkbox"
+                                checked={!!submitted[inj.id]}
+                                  disabled={expired}
+                                  style={{opacity: expired ?  0.4 : 1}}
+                                  onChange={(e)=> handleCheckbox(inj.id, e.target.checked)}
+                                  />
                         </li>
-                    ))}
+                        );
+                    })}
                 </ul>
             </div>
         </div>
