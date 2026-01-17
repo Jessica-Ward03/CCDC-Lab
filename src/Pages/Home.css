@@ -54,3 +54,7 @@
     margin: auto;
     width: 40%;
 }
+
+body {
+    font-family: 'sans-serif', 'Roboto', 'Arial';
+}
