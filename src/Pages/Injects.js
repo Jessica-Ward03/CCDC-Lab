@@ -1,29 +1,45 @@
 import {useEffect, useState} from "react";
 import { useTimer } from "../Time/TimerContext.js";
+import { useLocation} from "react-router-dom";
+import "./Injects.css";
 
-function importAll(r) {
-    return r.keys().map((file, index) => ({ //This auto pulls the injects
+function importAll(r) { //This function processes inject pdfs and names them inject 1..2..3
+    return r.keys().map((file, index) => ({
         id: index + 1,
         name: `Inject ${index + 1}`,
         file: r(file)
     }));
 }
-const injects = importAll(
-    require.context("./CompetitionMode", false, /\.pdf$/) //TODO make this object oriented programming :)
+
+const tutorialInjects = importAll( //Pulls injects for tut. mode
+    require.context("../TutorialMode", false, /\.pdf$/)
+);
+
+const competitionInjects = importAll( //Pulls injects for comp. mode
+    require.context("../CompetitionMode", false, /\.pdf$/)
 );
 
 export default function Injects() {
     const {secondsLeft, isRunning } = useTimer();
-    const [allInjects, setInjects] = useState([]); //Holds injects added to the page
-    const [submitted, setSubmitted] = useState({}); //Checks whether inject has been completed
+    const location = useLocation();
+    const currentMode = location.state?.tutorialMode || 1; //Determines difficulty mode with 1 as tut. 2 as comp.
+    const activeInjects = currentMode === 1 ? tutorialInjects : competitionInjects; //Selects what folder it pulls injects from.
+    const difficultyTimeSettings = {
+        1: { injectAddTime: 10, deadline: 30}, //Tutorial Mode
+        2: { injectAddTime: 5, deadline: 15 //Comp Mode
+        }
+    };
+    const currentTimeSettings = difficultyTimeSettings[currentMode]; //Pulls timing settings for adding injects and deadlines
+    const [displayedInjects, setInjects] = useState([]); //Holds injects added to the page
+    const [submittedInjects, setSubmittedInjects] = useState({}); //Checks whether inject has been completed
     const [injectDeadline, setInjectDeadline] = useState({});
 
-    useEffect(() => { //Saves page data.
+    useEffect(() => { //Loads page data.
         const savedInjects = JSON.parse(localStorage.getItem("savedInjectsIds"));
         const saveSubmitted = JSON.parse(localStorage.getItem("savedSubmitted"));
         const savedDeadline = JSON.parse(localStorage.getItem("injectDeadline"));
         if (savedInjects) setInjects(savedInjects);
-        if (saveSubmitted) setSubmitted(saveSubmitted);
+        if (saveSubmitted) setSubmittedInjects(saveSubmitted);
         if (savedDeadline) setInjectDeadline(savedDeadline);
     }, []);
 
@@ -31,7 +47,7 @@ export default function Injects() {
         const saved = JSON.parse(localStorage.getItem("labTimer"));
         if (!isRunning && saved?.endTime === 0 && secondsLeft === 600){
             setInjects([]);
-            setSubmitted({});
+            setSubmittedInjects({});
             setInjectDeadline({});
             localStorage.clear();
             window.location.reload();
@@ -39,14 +55,14 @@ export default function Injects() {
     },[secondsLeft, isRunning]);
 
     function addInjects() { //Call this to add more injects
-        if (allInjects.length < injects.length) {
-            const nextInject = injects[allInjects.length];
-            const injectList = [...allInjects, nextInject];
+        if (displayedInjects.length < activeInjects.length) {
+            const nextInject = activeInjects[displayedInjects.length];
+            const injectList = [...displayedInjects, nextInject];
             setInjects(injectList);
             localStorage.setItem("savedInjectsIds", JSON.stringify(injectList));
             const newDeadline = {
                 ...injectDeadline,
-                [nextInject.id]: secondsLeft - 10
+                [nextInject.id]: secondsLeft - currentTimeSettings.deadline
             };
             setInjectDeadline(newDeadline);
             localStorage.setItem("injectDeadline", JSON.stringify(newDeadline));
@@ -54,60 +70,51 @@ export default function Injects() {
     }
 
     useEffect(() => { //This function controls the timing of when injects are deployed
-        if (isRunning && secondsLeft > 0 && secondsLeft % 10 === 0) { //Current set to deploy every 10 seconds for testing.
+        if (isRunning && secondsLeft > 0 && secondsLeft % currentTimeSettings.injectAddTime === 0) { //Current set to deploy every 10 seconds for testing.
             addInjects();
         }
-    }, [secondsLeft]);
+    }, [secondsLeft, isRunning]);
 
     function handleCheckbox(injectId, checked) { //This is how users check off a task
         const expired = secondsLeft <=  injectDeadline[injectId];
         if (expired) return;
             const newSubmission = {
-                ...submitted,
+                ...submittedInjects,
                 [injectId]: checked
             };
-            setSubmitted(newSubmission);
+            setSubmittedInjects(newSubmission);
             localStorage.setItem("savedSubmitted", JSON.stringify(newSubmission));
     }
 
     return (
-        <div style={{ alignItems: "center", textAlign: "center" }}>
-            <img 
+        <div className = "injectsContainer">
+            <img
             src="Header.png" alt="IUS CCDC Banner" class="center">
             </img>
             <h1>Injects</h1>
-            <button onClick={addInjects}>Add Injects</button>
-            <div //This thing is the blue box that contains the injects
-                style={{margin: "0 auto", alignItems: "center", width: "25%", minHeight: "50px",
-                    background: "lightblue", border: "2px solid blue", padding: "20px", borderRadius: "8px"
-                }}
-            >
-                <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-                    {allInjects.map((inj) => { //Map container that holds injects on the screen
+            <div className="injectsBox">
+                <ul className="injectsList">
+                    {displayedInjects.map((inj) => {
                         const expired = secondsLeft <= injectDeadline[inj.id];
                         return (
-                        <li
-                            key={inj.id}
-                            style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px"
-                            }}
-                        >
-              <span
-                  onClick={() => window.open(inj.file, "_blank")}
-                  style={{ cursor: "pointer", textDecoration: "underline", color: "blue" }}
-              >
-                {inj.name}
-              </span>
-                            <span style={{marginRight: "10px"}}>
-                            {expired ? "Time Up" : `Time Left: ${injectDeadline[inj.id] - secondsLeft}s`}
+                            <li key={inj.id} className="injectMap">
+                                <span
+                                    onClick={() => window.open(inj.file, "_blank")}
+                                    className="injectLink"
+                                >
+                                    {inj.name}
                                 </span>
-
-                                <input type = "checkbox"
-                                checked={!!submitted[inj.id]}
-                                  disabled={expired}
-                                  style={{opacity: expired ?  0.4 : 1}}
-                                  onChange={(e)=> handleCheckbox(inj.id, e.target.checked)}
-                                  />
-                        </li>
+                                <span className="injectTimer">
+                                    {expired ? "Time Up" : `Time Left: ${injectDeadline[inj.id] - secondsLeft}s`}
+                                </span>
+                                <input
+                                    type="checkbox"
+                                    className="injectCheckbox"
+                                    checked={!!submittedInjects[inj.id]}
+                                    disabled={expired}
+                                    onChange={(e) => handleCheckbox(inj.id, e.target.checked)}
+                                />
+                            </li>
                         );
                     })}
                 </ul>

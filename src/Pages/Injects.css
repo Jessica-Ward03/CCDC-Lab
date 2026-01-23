@@ -27,3 +27,48 @@
     margin: auto;
     width: 40%;
 }
+
+.injectsContainer {
+    align-items: center;
+    text-align: center;
+}
+.injectsBox {
+    margin: 0 auto;
+    align-items: center;
+    width: 25%;
+    min-height: 50px;
+    background: lightblue;
+    border: 2px solid blue;
+    padding: 20px;
+    border-radius: 8px;
+}
+.injectsList{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.injectMap{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+.injectLink{
+    cursor: pointer;
+    text-decoration: underline;
+    color: blue;
+}
+.injectLink:hover{
+    color: darkblue;
+    text-decoration: none;
+}
+.injectTimer{
+    margin-right: 10px;
+}
+.injectCheckbox{
+    cursor: pointer;
+}
+.injectCheckbox:disabled{
+    opacity: 0.4;
+    cursor: not-allowed;
+}

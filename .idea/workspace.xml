@@ -6,17 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="5ce2bade-83be-4a40-84f2-3859a85bb677" name="Changes" comment="Added &quot;Time Left&quot; to each injects">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject01.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject01.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject02.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject02.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject03.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject03.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject04.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject04.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject05.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject05.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject06.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject06.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject07.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject07.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/Competiton Mode/inject08.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Competiton Mode/inject08.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/TestInjects/Drop_Flag_Inject.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/TestInjects/EVAL04T_-_External_Perimeter_Assessment_z1SC0e5.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/TestInjects/Exporting_Data__Log_Files_for_Inject_Reponses_ettlk1l.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/Tutorial Mode/inject01.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject01.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/CompetitionMode/inject01.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/TutorialMode/inject01.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/CompetitionMode/inject02.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject02.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/CompetitionMode/inject03.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject03.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/CompetitionMode/inject04.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject04.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/CompetitionMode/inject05.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject05.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/CompetitionMode/inject06.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject06.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/CompetitionMode/inject07.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject07.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/CompetitionMode/inject08.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject08.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Home.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Injects.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Injects.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/Injects.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Injects.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -105,11 +105,11 @@
       <recent name="C:\Users\jessi\PycharmProjects\CCDC-Lab" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src\Pages" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\public\Competiton Mode" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\public" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src\TestInjects" />
-      <recent name="C:\Users\jessi\PycharmProjects\CCDC-Lab\Docs" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.Welcome.html">
@@ -201,6 +201,8 @@
       <workItem from="1768089450270" duration="3065000" />
       <workItem from="1768169512173" duration="4618000" />
       <workItem from="1768602465354" duration="4135000" />
+      <workItem from="1768863683068" duration="4397000" />
+      <workItem from="1769129561503" duration="9726000" />
     </task>
     <task id="LOCAL-00001" summary="Added .gitignore">
       <option name="closed" value="true" />
