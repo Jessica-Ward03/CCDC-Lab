@@ -3,6 +3,13 @@ import { useTimer } from "../Time/TimerContext.js";
 import { useLocation} from "react-router-dom";
 import "./Injects.css";
 
+const formatTime = (seconds) =>{
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600)/60);
+    const s = seconds % 60;
+    return `${hours}:${String(minutes).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
 function importAll(r) { //This function processes inject pdfs and names them inject 1..2..3
     return r.keys().map((file, index) => ({
         id: index + 1,
@@ -22,12 +29,11 @@ const competitionInjects = importAll( //Pulls injects for comp. mode
 export default function Injects() {
     const {secondsLeft, isRunning } = useTimer();
     const location = useLocation();
-    const currentMode = location.state?.tutorialMode || 1; //Determines difficulty mode with 1 as tut. 2 as comp.
+    const currentMode = location.state?.currentMode || 1; //Determines difficulty mode with 1 as tut. 2 as comp.
     const activeInjects = currentMode === 1 ? tutorialInjects : competitionInjects; //Selects what folder it pulls injects from.
     const difficultyTimeSettings = {
         1: { injectAddTime: 10, deadline: 30}, //Tutorial Mode
-        2: { injectAddTime: 5, deadline: 15 //Comp Mode
-        }
+        2: { injectAddTime: 5, deadline: 15}
     };
     const currentTimeSettings = difficultyTimeSettings[currentMode]; //Pulls timing settings for adding injects and deadlines
     const [displayedInjects, setInjects] = useState([]); //Holds injects added to the page
@@ -89,15 +95,25 @@ export default function Injects() {
     return (
         <div className = "injectsContainer">
             <img
-            src="Header.png" alt="IUS CCDC Banner" class="center">
+            src="Header.png" alt="IUS CCDC Banner" className="center">
             </img>
-            <h1>Injects</h1>
+            <h1 className= "topHeader">Inject List
+            </h1>
             <div className="injectsBox">
                 <ul className="injectsList">
+                    <li className="injectHeader">
+                        <span>Name</span>
+                        <span>Time Left</span>
+                        <span>Completion</span>
+                    </li>
                     {displayedInjects.map((inj) => {
                         const expired = secondsLeft <= injectDeadline[inj.id];
+                        let rowClass = "injectRow";
+                        if (expired){
+                            rowClass += submittedInjects[inj.id] ? " injectComplete" : " injectFailed";
+                        }
                         return (
-                            <li key={inj.id} className="injectMap">
+                            <li key={inj.id} className={rowClass}>
                                 <span
                                     onClick={() => window.open(inj.file, "_blank")}
                                     className="injectLink"
@@ -105,7 +121,7 @@ export default function Injects() {
                                     {inj.name}
                                 </span>
                                 <span className="injectTimer">
-                                    {expired ? "Time Up" : `Time Left: ${injectDeadline[inj.id] - secondsLeft}s`}
+                                    {expired ? "Time Up" : `${formatTime(secondsLeft - injectDeadline[inj.id])}`}
                                 </span>
                                 <input
                                     type="checkbox"

@@ -1,45 +1,34 @@
-.injectPage table {
-    border: 2px;
-    background-color: #7d120b;
-    width: 800px;
-    height: 200px;
-    margin-bottom: 30px;
-    margin-left: 50px;
-}
-
-.injectPage h1 {
-    margin-left: 20px;
-}
-
-.injectPage th {
-    border-bottom: 1px solid black;
-}
-
-.injectPage td {
+.topHeader{
+    font-family: 'Orbitron', sans-serif;
+    text-decoration: underline;
+    margin-top: 20px;
+    margin-bottom: 10px;
     text-align: center;
+    font-size: 2.2rem;
+    letter-spacing: 2px;
+    position: relative;
+    cursor: default;
 }
 
 .center{
-    text-align: center;
     display: block;
-    justify-content: center;
-    align-items: center;
     margin: auto;
     width: 40%;
 }
 
 .injectsContainer {
+    display: flex;
+    flex-direction: column;
     align-items: center;
     text-align: center;
 }
 .injectsBox {
-    margin: 0 auto;
-    align-items: center;
-    width: 25%;
+    margin-top: 20px;
+    width: min(600px,90%);
     min-height: 50px;
-    background: lightblue;
-    border: 2px solid blue;
-    padding: 20px;
+    background: #dbeafe;
+    border: 2px solid #2563eb;
+    padding: 16px;
     border-radius: 8px;
 }
 .injectsList{
@@ -47,28 +36,58 @@
     padding: 0;
     margin: 0;
 }
-.injectMap{
-    display: flex;
-    justify-content: space-between;
+.injectHeader,.injectRow{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
     align-items: center;
+    gap: 12px;
+}
+.injectHeader{
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    color: #1e40af;
+    border-bottom: 2px solid #1e40af;
+    padding-bottom: 8px;
     margin-bottom: 10px;
 }
+.injectRow{
+    padding: 6px 0;
+    border-bottom: 1px solid #1a202c;
+}
+.injectRow:last-child{
+    border-bottom: none;
+}
+
 .injectLink{
     cursor: pointer;
     text-decoration: underline;
-    color: blue;
+    color: #1d4ed8;
+    text-align: center;
+    font-family:  'Poppins', sans-serif;
 }
 .injectLink:hover{
-    color: darkblue;
-    text-decoration: none;
+    color: #1e40af;
 }
 .injectTimer{
-    margin-right: 10px;
+    font-size: 0.9rem;
+    text-align: center;
+    white-space: nowrap;
+    font-family:  'Poppins', sans-serif;
 }
 .injectCheckbox{
+    justify-self: center;
     cursor: pointer;
 }
 .injectCheckbox:disabled{
     opacity: 0.4;
     cursor: not-allowed;
+}
+.injectComplete{
+    background-color : #d4edda;
+    transition: background-color 0.5s;
+}
+.injectFailed{
+    background-color : #f8d7da;
+    transition: background-color 0.5s;
 }
