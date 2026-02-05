@@ -3,5 +3,5 @@
 Has Windows 2019 Standard installed.
 
 Username: Administrator 
-Password: CDCDIsLife25
+Password: Password123
 
