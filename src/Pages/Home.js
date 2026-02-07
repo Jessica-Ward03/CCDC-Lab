@@ -64,7 +64,7 @@ function TabGroup({ setTutorialMode, startTimer }) {
 
             <div className="homePageSubButton">
               <Link to="./Injects">
-                <button onClick={() => {setTutorialMode(1); startTimer(600);}}>Tutorial Mode</button>
+                <button onClick={() => {setTutorialMode(1); startTimer(7200);}}>Tutorial Mode</button>
               </Link>
               <Link to="./Injects">
                 <button onClick={() => {setTutorialMode(2); startTimer(600);}}>Competition Mode</button>
@@ -87,12 +87,12 @@ function TabGroup({ setTutorialMode, startTimer }) {
             </div>
             <div className="homePageSubButton">
                 <Link to="./Injects" state={{ currentMode: 1 }}>
-                    <button onClick={() => {setTutorialMode(1); startTimer(600);}}>
+                    <button onClick={() => {setTutorialMode(1); startTimer(7200);}}>
                         Tutorial Mode
                     </button>
                 </Link>
                 <Link to="./Injects" state={{ currentMode: 2 }}>
-                    <button onClick={() => {setTutorialMode(2); startTimer(600);}}>
+                    <button onClick={() => {setTutorialMode(2); startTimer(28800);}}>
                         Competition Mode
                     </button>
                 </Link>

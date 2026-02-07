@@ -4,10 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ce2bade-83be-4a40-84f2-3859a85bb677" name="Changes" comment="Added &quot;Time Left&quot; to each injects">
+    <list default="true" id="5ce2bade-83be-4a40-84f2-3859a85bb677" name="Changes" comment="Finalized the look of the injects page and fixed a bug that prevented difficulty next to do is add finalized injects and finish difficulty">
+      <change afterPath="$PROJECT_DIR$/server/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TutorialMode/inject03.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TutorialMode/inject04.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TutorialMode/inject05.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TutorialMode/inject06.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TutorialMode/inject07.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TutorialMode/inject08.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TutorialMode/inject09.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/TutorialMode/inject10.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Pages/Injects.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Injects.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompetitionMode/inject02.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject02.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompetitionMode/inject03.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject03.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompetitionMode/inject04.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject04.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompetitionMode/inject05.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/CompetitionMode/inject05.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompetitionMode/inject07.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CompetitionMode/inject08.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/src/TutorialMode/inject02.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Pages/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Home.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Pages/Injects.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Pages/Injects.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +35,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -96,11 +113,11 @@
       <recent name="C:\Users\jessi\PycharmProjects\CCDC-Lab" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src\CompetitionMode" />
+      <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src\TutorialMode" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src\Pages" />
       <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\public\Competiton Mode" />
-      <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\public" />
-      <recent name="C:\Users\jtyle\WebstormProjects\CCDC-Lab\src\TestInjects" />
     </key>
   </component>
   <component name="RunManager" selected="JavaScript Debug.Welcome.html">
@@ -194,7 +211,10 @@
       <workItem from="1768602465354" duration="4135000" />
       <workItem from="1768863683068" duration="4397000" />
       <workItem from="1769129561503" duration="9726000" />
-      <workItem from="1769999349396" duration="5320000" />
+      <workItem from="1769999349396" duration="5448000" />
+      <workItem from="1770054802294" duration="6431000" />
+      <workItem from="1770341336081" duration="964000" />
+      <workItem from="1770418413248" duration="2317000" />
     </task>
     <task id="LOCAL-00001" summary="Added .gitignore">
       <option name="closed" value="true" />
@@ -268,7 +288,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768604439527</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Finalized the look of the injects page and fixed a bug that prevented difficulty next to do is add finalized injects and finish difficulty">
+      <option name="closed" value="true" />
+      <created>1770007731425</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1770007731425</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -293,7 +321,8 @@
     <MESSAGE value="The inject page update. Function added to add new injects and button to test it (still needs to be synced to time) and an option for users to upload files." />
     <MESSAGE value="Injects page is successfully hooked up to timer. Currently for test purposes drops an inject every 10 seconds. Reset competition button now resets injects page as well." />
     <MESSAGE value="Added &quot;Time Left&quot; to each injects" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added &quot;Time Left&quot; to each injects" />
+    <MESSAGE value="Finalized the look of the injects page and fixed a bug that prevented difficulty next to do is add finalized injects and finish difficulty" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finalized the look of the injects page and fixed a bug that prevented difficulty next to do is add finalized injects and finish difficulty" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CCDC_Lab$CCDC_Lab.coverage" NAME="CCDC-Lab Coverage Results" MODIFIED="1763509058427" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
