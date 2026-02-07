@@ -92,7 +92,7 @@ function TabGroup({ setTutorialMode, startTimer }) {
                     </button>
                 </Link>
                 <Link to="./Injects" state={{ currentMode: 2 }}>
-                    <button onClick={() => {setTutorialMode(2); startTimer(600);}}>
+                    <button onClick={() => {setTutorialMode(2); startTimer(28800);}}>
                         Competition Mode
                     </button>
                 </Link>
