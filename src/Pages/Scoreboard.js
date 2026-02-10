@@ -5,7 +5,7 @@ import Timer from "../Time/Timer";
 import { useTimer } from "../Time/TimerContext";
 
 
-export default function Scoreboard() {
+export default function Scoreboard({servicesData}) {
   //TODO All Hardcoded vars will need to be changed
   const { secondsLeft } = useTimer();
   
@@ -16,21 +16,33 @@ export default function Scoreboard() {
   var Score = 0
 
   //TODO pass in the actual if up or down might need to do something like with the timer
-  var service_ecomhttp_Up = true;
-  var service_mailpop3_Up = false;
-  var service_2022ftp_Up = true;
-  var service_addns_Up = true;
-  var service_splunkhttp_Up = true;
-  var service_2019http_Up = true;
-  var service_mailsmtp_Up = true;
-  //TODO pass in the actual up times this will fix the odd showing percentages
-  var service_ecomhttp_Time = 120;
-  var service_mailpop3_Time = 20;
-  var service_2022ftp_Time = 120;
-  var service_addns_Time = 120;
-  var service_splunkhttp_Time = 120;
-  var service_2019http_Time = 120;
-  var service_mailsmtp_Time = 60;
+ 
+  var service_ecomhttp_Up = servicesData?.["ecom-http"]?.alive || false;
+
+  var service_mailpop3_Up = servicesData?.["mail-pop3"]?.alive || false;
+var service_2022ftp_Up = servicesData?.["2022-ftp"]?.alive || false;
+var service_addns_Up = servicesData?.["ad-dns"]?.alive || false;
+var service_splunkhttp_Up = servicesData?.["splunk-http"]?.alive || false;
+var service_2019http_Up = servicesData?.["2019-http"]?.alive || false;
+var service_mailsmtp_Up = servicesData?.["mail-smtp"]?.alive || false;
+/*
+
+  var service_mailpop3_Up = servicesData?.["mail-pop3"]?.alive || false;
+var service_2022ftp_Up = servicesData?.["2022-ftp"]?.alive || false;
+var service_addns_Up = servicesData?.["ad-dns"]?.alive || false;
+var service_splunkhttp_Up = servicesData?.["splunk-http"]?.alive || false;
+var service_2019http_Up = servicesData?.["2019-http"]?.alive || false;
+var service_mailsmtp_Up = servicesData?.["mail-smtp"]?.alive || false;
+  */
+ 
+//TODO pass in the actual up times this will fix the odd showing percentages
+  var service_ecomhttp_Time = servicesData?.["ecom-http"]?.uptimePercent || 0;
+  var service_mailpop3_Time = servicesData?.["mail-pop3"]?.uptimePercent || 0;
+var service_2022ftp_Time = servicesData?.["2022-ftp"]?.uptimePercent || 0;
+var service_addns_Time = servicesData?.["ad-dns"]?.uptimePercent || 0;
+var service_splunkhttp_Time = servicesData?.["splunk-http"]?.uptimePercent || 0;
+var service_2019http_Time = servicesData?.["2019-http"]?.uptimePercent || 0;
+var service_mailsmtp_Time = servicesData?.["mail-smtp"]?.uptimePercent || 0;
   var upServices = 0;
   var services = [service_ecomhttp_Up, service_mailpop3_Up,service_2022ftp_Up, service_addns_Up,service_splunkhttp_Up, service_2019http_Up, service_mailsmtp_Up];
   var servicesTimes = [service_ecomhttp_Time, service_mailpop3_Time,service_2022ftp_Time, service_addns_Time,service_splunkhttp_Time, service_2019http_Time, service_mailsmtp_Time];
@@ -49,8 +61,8 @@ export default function Scoreboard() {
 
   function getScore() {
     //TODO update to actually cal. score
-    var x = 19880;
-    return x;
+    const pointsPerService = 1000;
+    return getUpServices(services, 0) * pointsPerService;;
   }
 
   //Expects the serviceUp to be set t true or false to see if service is currently up
@@ -90,8 +102,8 @@ export default function Scoreboard() {
   //Expects the services times amd totalTime to be set 
   //Returns the percent of time the service has been up.
   
-  function getUpTimes(service, totalTimeCompetition) {
-    return Math.round((service / totalTimeCompetition)* 100);
+  function getUpTimes(percent) {
+    return percent || 0;;
   }
   
 
@@ -186,13 +198,13 @@ export default function Scoreboard() {
         <tbody>
           <tr>
             <td>IUS</td>
-            <td>{getUpTimes(servicesTimes[0], elapsed)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[1], elapsed)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[2], elapsed)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[3], elapsed)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[4], elapsed)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[5], elapsed)+ "%"}</td>
-            <td>{getUpTimes(servicesTimes[6], elapsed)+ "%"}</td>
+            <td>{getUpTimes(servicesTimes[0] + "%")}</td>
+            <td>{getUpTimes(servicesTimes[1] + "%")}</td>
+            <td>{getUpTimes(servicesTimes[2] + "%")}</td>
+            <td>{getUpTimes(servicesTimes[3] + "%")}</td>
+            <td>{getUpTimes(servicesTimes[4] + "%")}</td>
+            <td>{getUpTimes(servicesTimes[5] + "%")}</td>
+            <td>{getUpTimes(servicesTimes[6] + "%")}</td>
           </tr>
         </tbody>
       </table>
