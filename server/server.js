@@ -1,6 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const ping = require("ping");
+const net = require('net')
+const cors = require('cors')
 
 const app = express();
 const port = 3001;
@@ -15,11 +17,27 @@ const port = 3001;
   { name: "2019-http", host: "192.168.1.15", port: 22 },
   { name: "mail-smtp", host: "192.168.1.11", port: 143 },
 ];*/
-//const services = [
- // { name: "ecom-http", host: "192.12.206.140", port: 8006}];
 
-const net = require("net");
 
+
+app.use(cors());
+
+let currentStatus = {};
+
+
+const services = [
+ { name: "ad-dns", host: "169.254.172.24", port:53}];
+
+//Store check history for uptime calculation
+const serviceHistory = {};
+services.forEach(service => {
+  serviceHistory[service.name] = {
+    checks: [],
+    startTime: Date.now()
+  };
+});
+
+// Check single service
 function checkService(service) {
   return new Promise((resolve) => {
     const socket = new net.Socket();
@@ -27,39 +45,77 @@ function checkService(service) {
 
     socket.connect(service.port, service.host, () => {
       socket.destroy();
-      resolve({ ...service, status: "UP" });
+      resolve({ ...service, alive: true });
     });
 
     socket.on("error", () => {
-      resolve({ ...service, status: "DOWN" });
+      resolve({ ...service, alive: false });
     });
 
     socket.on("timeout", () => {
       socket.destroy();
-      resolve({ ...service, status: "DOWN" });
+      resolve({ ...service, alive: false });
     });
   });
+}
 
-  let currentStatus = [];
+// Calculate uptime percentage
+function calculateUptime(serviceName) {
+  const history = serviceHistory[serviceName];
+  if (!history || history.checks.length === 0) return 0;
 
+  const upChecks = history.checks.filter(check => check).length;
+  const totalChecks = history.checks.length;
+  
+  return Math.round((upChecks / totalChecks) * 100);
+}
+
+//Check all
 async function checkAllServices() {
   const results = await Promise.all(
     services.map((service) => checkService(service))
   );
 
-  currentStatus = results;
-  console.log("Updated service status:", currentStatus);
+  //Update history and status
+  results.forEach(result => {
+    serviceHistory[result.name].checks.push(result.alive);
+    
+    if (serviceHistory[result.name].checks.length > 50) {
+      serviceHistory[result.name].checks.shift();
+    }
+    
+    //Store current status
+    currentStatus[result.name] = {
+      alive: result.alive,
+      uptimePercent: calculateUptime(result.name)
+    };
+  });
 }
 
+//Run immediately
 checkAllServices();
 
-//Run every 2 minutes
-//setInterval(checkAllServices, 2 * 60 * 1000);
-setInterval(checkAllServices, 30 * 1000);
+//Run every 5 seconds
+setInterval(checkAllServices, 5 * 1000);
 
-
+//API
 app.get("/api/status", (req, res) => {
+  const formattedStatus = {};
+  
+  services.forEach(service => {
+    const history = serviceHistory[service.name];
+    const latestCheck = history.checks[history.checks.length - 1];
+    
+    formattedStatus[service.name] = {
+      alive: latestCheck || false,
+      uptimePercent: calculateUptime(service.name)
+    };
+  });
+  
   res.json(currentStatus);
 });
 
-}
+// Start server
+app.listen(port, () => {
+  console.log(`Monitoring server running on http://localhost:${port}`);
+});

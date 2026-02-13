@@ -6,47 +6,40 @@ import { useTimer } from "../Time/TimerContext";
 
 
 export default function Scoreboard({servicesData}) {
-  //TODO All Hardcoded vars will need to be changed
-  const { secondsLeft } = useTimer();
+ 
+
+  const { secondsLeft, initialDuration, resetTrigger } = useTimer();
+  const[totalScore, setTotalScore] = useState(0);
+
   
-  //TODO update to pass in the time competition was started with
-  const totalTimeCompetition = 600;
+  
+  const totalTimeCompetition = initialDuration;
 
-
-  var Score = 0
-
-  //TODO pass in the actual if up or down might need to do something like with the timer
  
   var service_ecomhttp_Up = servicesData?.["ecom-http"]?.alive || false;
-
   var service_mailpop3_Up = servicesData?.["mail-pop3"]?.alive || false;
-var service_2022ftp_Up = servicesData?.["2022-ftp"]?.alive || false;
-var service_addns_Up = servicesData?.["ad-dns"]?.alive || false;
-var service_splunkhttp_Up = servicesData?.["splunk-http"]?.alive || false;
-var service_2019http_Up = servicesData?.["2019-http"]?.alive || false;
-var service_mailsmtp_Up = servicesData?.["mail-smtp"]?.alive || false;
-/*
+  var service_2022ftp_Up = servicesData?.["2022-ftp"]?.alive || false;
+  var service_addns_Up = servicesData?.["ad-dns"]?.alive || false;
+  var service_splunkhttp_Up = servicesData?.["splunk-http"]?.alive || false;
+  var service_2019http_Up = servicesData?.["2019-http"]?.alive || false;
+  var service_mailsmtp_Up = servicesData?.["mail-smtp"]?.alive || false;
 
-  var service_mailpop3_Up = servicesData?.["mail-pop3"]?.alive || false;
-var service_2022ftp_Up = servicesData?.["2022-ftp"]?.alive || false;
-var service_addns_Up = servicesData?.["ad-dns"]?.alive || false;
-var service_splunkhttp_Up = servicesData?.["splunk-http"]?.alive || false;
-var service_2019http_Up = servicesData?.["2019-http"]?.alive || false;
-var service_mailsmtp_Up = servicesData?.["mail-smtp"]?.alive || false;
-  */
  
-//TODO pass in the actual up times this will fix the odd showing percentages
+
   var service_ecomhttp_Time = servicesData?.["ecom-http"]?.uptimePercent || 0;
   var service_mailpop3_Time = servicesData?.["mail-pop3"]?.uptimePercent || 0;
-var service_2022ftp_Time = servicesData?.["2022-ftp"]?.uptimePercent || 0;
-var service_addns_Time = servicesData?.["ad-dns"]?.uptimePercent || 0;
-var service_splunkhttp_Time = servicesData?.["splunk-http"]?.uptimePercent || 0;
-var service_2019http_Time = servicesData?.["2019-http"]?.uptimePercent || 0;
-var service_mailsmtp_Time = servicesData?.["mail-smtp"]?.uptimePercent || 0;
+  var service_2022ftp_Time = servicesData?.["2022-ftp"]?.uptimePercent || 0;
+  var service_addns_Time = servicesData?.["ad-dns"]?.uptimePercent || 0;
+  var service_splunkhttp_Time = servicesData?.["splunk-http"]?.uptimePercent || 0;
+  var service_2019http_Time = servicesData?.["2019-http"]?.uptimePercent || 0;
+  var service_mailsmtp_Time = servicesData?.["mail-smtp"]?.uptimePercent || 0;
   var upServices = 0;
   var services = [service_ecomhttp_Up, service_mailpop3_Up,service_2022ftp_Up, service_addns_Up,service_splunkhttp_Up, service_2019http_Up, service_mailsmtp_Up];
   var servicesTimes = [service_ecomhttp_Time, service_mailpop3_Time,service_2022ftp_Time, service_addns_Time,service_splunkhttp_Time, service_2019http_Time, service_mailsmtp_Time];
   
+  useEffect(() => {
+    setTotalScore(0);
+  }, [resetTrigger]);
 
   const elapsed = totalTimeCompetition - secondsLeft;
 
@@ -59,13 +52,24 @@ var service_mailsmtp_Time = servicesData?.["mail-smtp"]?.uptimePercent || 0;
     return `${h.toString().padStart(2, "0")}:${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
   }
 
-  function getScore() {
-    //TODO update to actually cal. score
-    const pointsPerService = 1000;
-    return getUpServices(services, 0) * pointsPerService;;
-  }
 
-  //Expects the serviceUp to be set t true or false to see if service is currently up
+
+  useEffect(() => {
+    if (!servicesData || Object.keys(servicesData).length === 0) return;
+    
+    const now = Date.now();
+    
+    const currentUpServices = services.filter(s => s === true).length;
+    const pointsPerServicePerSecond = 1000;
+    const pointsEarned = currentUpServices * pointsPerServicePerSecond;
+    
+    setTotalScore(prev => prev + pointsEarned);
+  }, [servicesData]);
+
+  function getScore() {
+    return Math.round(totalScore);
+  }
+  //Expects the serviceUp to be set to true or false to see if service is currently up
   //Returns the image for if service is up or down.
   function getScoreImage(serviceUp) {
     if (serviceUp === true){
@@ -130,7 +134,7 @@ var service_mailsmtp_Time = servicesData?.["mail-smtp"]?.uptimePercent || 0;
             <td>IUS</td>
             <td>{getUpServices(services, upServices)}</td>
             <td>{services.length - getUpServices(services, upServices)}</td>
-            <td>{getScore()}</td>
+            <td>{getScore(services, upServices)}</td>
             </tr>
         </tbody>
       </table>

@@ -12,8 +12,8 @@ const Tab = styled.button`
   background: white;
   border: 0;
   outline: 0;
-  ${({ active }) =>
-    active &&
+  ${({ $active }) =>
+    $active &&
     `
     border-bottom: 2px solid black;
     opacity: 1;
@@ -111,7 +111,7 @@ function TabGroup({ setTutorialMode, startTimer }) {
         {types.map((type) => (
           <Tab
             key={type}
-            active={active === type}
+            $active={active === type}
             onClick={() => setActive(type)}
           >
             {type}
