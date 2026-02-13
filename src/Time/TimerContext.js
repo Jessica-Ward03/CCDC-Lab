@@ -10,13 +10,23 @@ const TimerContext = createContext(null);
 export function TimerProvider({ children }) {
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [initialDuration, setInitialDuration] = useState(600)
+  const [resetTrigger, setResetTrigger] = useState(0)
   const intervalRef = useRef(null);
 
+
+  
   const startTimer = (durationSeconds) => {
     if (intervalRef.current) return;
 
     const endTime = Date.now() + durationSeconds * 1000;
-    localStorage.setItem("labTimer", JSON.stringify({ endTime, running: true }));
+    localStorage.setItem("labTimer", JSON.stringify(
+      { 
+        endTime, 
+        running: true,
+        initialDuration: durationSeconds
+       }
+    ));
 
     setSecondsLeft(durationSeconds);
     setIsRunning(true);
@@ -50,9 +60,13 @@ export function TimerProvider({ children }) {
 
   const resetTimer = () => {
     pauseTimer();
+    setInitialDuration(600);
     setSecondsLeft(600);
     localStorage.setItem("labTimer", JSON.stringify({ endTime: 0, running: false }));
+    setResetTrigger(prev => prev + 1); 
   };
+
+
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("labTimer"));
@@ -65,8 +79,18 @@ export function TimerProvider({ children }) {
     }
   }, []);
 
+  
+
   return (
-    <TimerContext.Provider value={{ secondsLeft, isRunning, startTimer, pauseTimer, resetTimer }}>
+    <TimerContext.Provider value={{ 
+      secondsLeft, 
+      isRunning, 
+      initialDuration, 
+      resetTrigger,  
+      startTimer, 
+      pauseTimer, 
+      resetTimer 
+    }}>
       {children}
     </TimerContext.Provider>
   );
