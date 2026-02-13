@@ -8,7 +8,7 @@ import { useTimer } from "../Time/TimerContext";
 export default function Scoreboard({servicesData}) {
  
 
-  const { secondsLeft, initialDuration, resetTrigger } = useTimer();
+  const { secondsLeft, initialDuration, resetTrigger, isRunning } = useTimer();
   const[totalScore, setTotalScore] = useState(0);
 
   
@@ -56,8 +56,7 @@ export default function Scoreboard({servicesData}) {
 
   useEffect(() => {
     if (!servicesData || Object.keys(servicesData).length === 0) return;
-    
-    const now = Date.now();
+    if (secondsLeft === 0 || !isRunning) return;
     
     const currentUpServices = services.filter(s => s === true).length;
     const pointsPerServicePerSecond = 1000;
