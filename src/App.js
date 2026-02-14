@@ -6,10 +6,15 @@ import Header from "./Header/Header";
 import Home from "./Pages/Home";
 import Injects from "./Pages/Injects";
 import Scoreboard from "./Pages/Scoreboard";
-import { TimerProvider } from "./Time/TimerContext";
+import { TimerProvider, useTimer } from "./Time/TimerContext";
 
 export default function App() {
   const [servicesData, setServicesData] = useState({});
+  const { resetTrigger } = useTimer();
+
+  useEffect(() => {
+    fetchStatus();
+  }, [resetTrigger]);
 
   useEffect(() => {
     //Fetch immediately

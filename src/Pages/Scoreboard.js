@@ -11,7 +11,7 @@ export default function Scoreboard({servicesData}) {
   const { secondsLeft, initialDuration, resetTrigger, isRunning } = useTimer();
   const[totalScore, setTotalScore] = useState(0);
 
-  
+
   
   const totalTimeCompetition = initialDuration;
 
@@ -59,7 +59,7 @@ export default function Scoreboard({servicesData}) {
     if (secondsLeft === 0 || !isRunning) return;
     
     const currentUpServices = services.filter(s => s === true).length;
-    const pointsPerServicePerSecond = 1000;
+    const pointsPerServicePerSecond = 100;
     const pointsEarned = currentUpServices * pointsPerServicePerSecond;
     
     setTotalScore(prev => prev + pointsEarned);
@@ -71,6 +71,7 @@ export default function Scoreboard({servicesData}) {
   //Expects the serviceUp to be set to true or false to see if service is currently up
   //Returns the image for if service is up or down.
   function getScoreImage(serviceUp) {
+    console.log("Service status:", serviceUp)
     if (serviceUp === true){
       return "./GreenArrow.png"
     }else{

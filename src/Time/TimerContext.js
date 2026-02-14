@@ -64,6 +64,10 @@ export function TimerProvider({ children }) {
     setSecondsLeft(600);
     localStorage.setItem("labTimer", JSON.stringify({ endTime: 0, running: false }));
     setResetTrigger(prev => prev + 1); 
+
+    fetch('http://localhost:3001/api/reset', {
+    method: 'POST'
+  }).catch(err => console.error('Failed to reset service history:', err));
   };
 
 
