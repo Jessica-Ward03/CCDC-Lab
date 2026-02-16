@@ -1,8 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 
-
 //Thanks to Geeks for Geeks https://www.geeksforgeeks.org/reactjs/creating-a-timer-component-with-useeffect-hook-in-react/ for the timer
-
+const API = "http://localhost:3001";
 
 
 const TimerContext = createContext(null);
@@ -10,39 +9,31 @@ const TimerContext = createContext(null);
 export function TimerProvider({ children }) {
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
-  const [initialDuration, setInitialDuration] = useState(600)
-  const [resetTrigger, setResetTrigger] = useState(0)
   const intervalRef = useRef(null);
 
-
-  
   const startTimer = (durationSeconds) => {
     if (intervalRef.current) return;
 
     const endTime = Date.now() + durationSeconds * 1000;
-    localStorage.setItem("labTimer", JSON.stringify(
-      { 
-        endTime, 
-        running: true,
-        initialDuration: durationSeconds
-       }
-    ));
+    fetch(`${API}/api/timer/start`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({endTime})
+    }).catch(err=>console.error("failed to save timer :(", err));
 
     setSecondsLeft(durationSeconds);
     setIsRunning(true);
 
     intervalRef.current = setInterval(() => {
-      const saved = JSON.parse(localStorage.getItem("labTimer"));
-      if (!saved) return;
-
-      const remaining = Math.max(Math.ceil((saved.endTime - Date.now()) / 1000), 0);
+      const remaining = Math.max(Math.ceil((endTime - Date.now()) / 1000), 0);
       setSecondsLeft(remaining);
 
       if (remaining <= 0) {
         clearInterval(intervalRef.current);
         intervalRef.current = null;
         setIsRunning(false);
-        localStorage.setItem("labTimer", JSON.stringify({ endTime: 0, running: false }));
+        fetch(`${API}/api/timer/reset` , {method: "POST"})
+            .catch(err=>console.error("failed to reset timer :(", err));
       }
     }, 1000);
   };
@@ -53,50 +44,40 @@ export function TimerProvider({ children }) {
       intervalRef.current = null;
       setIsRunning(false);
 
-      const saved = JSON.parse(localStorage.getItem("labTimer")) || {};
-      localStorage.setItem("labTimer", JSON.stringify({ ...saved, running: false }));
+      fetch(`${API}/api/timer/pause` , {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({endTime: Date.now()})
+      }).catch(err=>console.error("failed to pause timer :(", err));
     }
   };
 
   const resetTimer = () => {
     pauseTimer();
-    setInitialDuration(600);
     setSecondsLeft(600);
-    localStorage.setItem("labTimer", JSON.stringify({ endTime: 0, running: false }));
-    setResetTrigger(prev => prev + 1); 
-
-    fetch('http://localhost:3001/api/reset', {
-    method: 'POST'
-  }).catch(err => console.error('Failed to reset service history:', err));
+    fetch(`${API}/api/injects/reset` , {method: "POST"})
+        .catch(err=>console.error("failed to reset timer :(", err));
   };
 
-
-
   useEffect(() => {
-    const saved = JSON.parse(localStorage.getItem("labTimer"));
-    if (saved?.running && saved?.endTime) {
-      const remaining = Math.max(Math.ceil((saved.endTime - Date.now()) / 1000), 0);
-      if (remaining > 0) startTimer(remaining);
-    } else {
-      setSecondsLeft(600);
-      setIsRunning(false);
-    }
+    fetch(`${API}/api/timer/state`)
+        .then(res => res.json())
+        .then(data => {
+          if (data.running && data.endTime) {
+            const remaining = Math.max(Math.ceil((data.endTime - Date.now()) / 1000), 0);
+            if (remaining > 0) startTimer(remaining);
+          } else {
+            setSecondsLeft(data.remainingOnPause ?? 600);
+            setIsRunning(false);
+          }
+        })
+        .catch(() => setSecondsLeft(600));
   }, []);
 
-  
-
   return (
-    <TimerContext.Provider value={{ 
-      secondsLeft, 
-      isRunning, 
-      initialDuration, 
-      resetTrigger,  
-      startTimer, 
-      pauseTimer, 
-      resetTimer 
-    }}>
-      {children}
-    </TimerContext.Provider>
+      <TimerContext.Provider value={{ secondsLeft, isRunning, startTimer, pauseTimer, resetTimer }}>
+        {children}
+      </TimerContext.Provider>
   );
 }
 

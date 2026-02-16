@@ -1,150 +1,177 @@
-
-require("dotenv").config();
-const express = require("express");
-const ping = require("ping");
-const net = require('net')
-const cors = require('cors')
+const express = require('express');
+const cors = require('cors');
+const https = require('https');
 
 const app = express();
-const port = 3001;
-
-//Add back once get all of them
-/*const services = [
-  { name: "ecom-http", host: "192.168.1.10", port: 80 },
-  { name: "mail-pop3", host: "192.168.1.11", port: 25 },
-  { name: "2022-ftp", host: "192.168.1.12", port: 21 },
-  { name: "ad-dns", host: "192.168.1.13", port: 53 },
-  { name: "splunk-http", host: "192.168.1.14", port: 3306 },
-  { name: "2019-http", host: "192.168.1.15", port: 22 },
-  { name: "mail-smtp", host: "192.168.1.11", port: 143 },
-];*/
-
-
-const windowsToken = process.env.WINDOWS_TOKEN;
-const linuxToken = process.env.LINUX_TOKEN;
 app.use(cors());
+app.use(express.json());
 
-let currentStatus = {};
+// Proxmox API configuration
+const PROXMOX_HOST = process.env.PROXMOX_HOST;
+const PROXMOX_PORT = process.env.PROXMOX_PORT || '8006';
+const PROXMOX_USER = process.env.PROXMOX_USER; // e.g., 'root@pam'
+const PROXMOX_TOKEN_NAME = process.env.PROXMOX_TOKEN_NAME; // e.g., 'mytoken'
+const PROXMOX_TOKEN_VALUE = process.env.PROXMOX_TOKEN_VALUE; // the secret value
 
+let timerState = {
+    endTime: 0,       // ms timestamp of when timer hits 0 (0 = not running)
+    running: false,
+    defaultSeconds: 600
+};
 
-
-
-
-
-const services = [
- { name: "ad-dns", host: "169.254.172.24", port:53},
- { name: "mail-smtp", host: "169.254.172.24", port: 139 },
- { name: "mail-pop3", host: "169.254.172.24", port: 139 },
-  { name: "2022-ftp", host: "169.254.172.24", port: 139 },
-  { name: "splunk-http", host: "169.254.172.24", port: 139 },
-  { name: "2019-http", host: "169.254.36.87", port: 80 },
-  { name: "ecom-http", host: "169.254.172.24", port: 139 }
- 
-];
-
-//Store check history for uptime calculation
-const serviceHistory = {};
-services.forEach(service => {
-  serviceHistory[service.name] = {
-    checks: [],
-    startTime: Date.now()
-  };
+app.get('/api/timer/state', (req, res) => {
+    res.json(timerState);
 });
 
-// Check single service
-function checkService(service) {
-  return new Promise((resolve) => {
-    const socket = new net.Socket();
-    socket.setTimeout(3000);
+app.post('/api/timer/start', (req, res) => {
+    const { endTime } = req.body;
+    if (!endTime) return res.status(400).json({ success: false, error: 'endTime required' });
+    timerState = {
+        endTime,
+        running: true,
+        defaultSeconds: timerState.defaultSeconds
+    };
+    res.json({ success: true, state: timerState });
+});
 
-    socket.connect(service.port, service.host, () => {
-      socket.destroy();
-      resolve({ ...service, alive: true });
-    });
-
-    socket.on("error", () => {
-      resolve({ ...service, alive: false });
-    });
-
-    socket.on("timeout", () => {
-      socket.destroy();
-      resolve({ ...service, alive: false });
-    });
-  });
-}
-
-// Calculate uptime percentage
-function calculateUptime(serviceName) {
-  const history = serviceHistory[serviceName];
-  if (!history || history.checks.length === 0) return 0;
-
-  const upChecks = history.checks.filter(check => check).length;
-  const totalChecks = history.checks.length;
-  
-  return Math.round((upChecks / totalChecks) * 100);
-}
-
-//Check all
-async function checkAllServices() {
-  const results = await Promise.all(
-    services.map((service) => checkService(service))
-  );
-
-  //Update history and status
-  results.forEach(result => {
-    serviceHistory[result.name].checks.push(result.alive);
-    
-    if (serviceHistory[result.name].checks.length > 50) {
-      serviceHistory[result.name].checks.shift();
+app.post('/api/timer/pause', (req, res) => {
+    if (timerState.running) {
+        const remaining = Math.max(Math.ceil((timerState.endTime - Date.now()) / 1000), 0);
+        timerState = {
+            endTime: Date.now() + remaining * 1000,
+            running: false,
+            remainingOnPause: remaining,
+            defaultSeconds: timerState.defaultSeconds
+        };
     }
-    
-    //Store current status
-    currentStatus[result.name] = {
-      alive: result.alive,
-      uptimePercent: calculateUptime(result.name)
+    res.json({ success: true, state: timerState });
+});
+
+app.post('/api/timer/reset', (req, res) => {
+    timerState = {
+        endTime: 0,
+        running: false,
+        defaultSeconds: timerState.defaultSeconds
     };
-  });
+    res.json({ success: true });
+});
+
+let sharedState = {
+    savedInjectsIds: [],
+    savedSubmitted:  {},
+    injectDeadline:  {},
+};
+
+app.get('/api/injects/state', (req, res) => {
+    res.json(sharedState);
+});
+
+app.patch('/api/injects/add', (req, res) => {
+    const { inject, deadline } = req.body;
+    if (!inject || deadline === undefined) {
+        return res.status(400).json({ success: false, error: 'inject and deadline required' });
+    }
+    const already = sharedState.savedInjectsIds.some(i => i.id === inject.id);
+    if (!already) {
+        sharedState.savedInjectsIds = [...sharedState.savedInjectsIds, inject];
+        sharedState.injectDeadline  = { ...sharedState.injectDeadline, [inject.id]: deadline };
+    }
+    res.json({ success: true, state: sharedState });
+});
+
+app.patch('/api/injects/submit', (req, res) => {
+    const { injectId, checked } = req.body;
+    if (injectId === undefined || checked === undefined) {
+        return res.status(400).json({ success: false, error: 'injectId and checked required' });
+    }
+    sharedState.savedSubmitted = { ...sharedState.savedSubmitted, [injectId]: checked };
+    res.json({ success: true, state: sharedState });
+});
+
+app.post('/api/injects/reset', (req, res) => {
+    sharedState = { savedInjectsIds: [], savedSubmitted: {}, injectDeadline: {} };
+    timerState = { endTime: 0, running: false, defaultSeconds: timerState.defaultSeconds };
+    scoreState = { totalScore: 0 }; // *** NEW: also clears score on reset ***
+    res.json({ success: true });
+});
+
+let scoreState = { totalScore: 0 };
+
+app.get('/api/score/state', (req, res) => {
+    res.json(scoreState);
+});
+
+
+app.patch('/api/score/add', (req, res) => {
+    const { points } = req.body;
+    if (points === undefined) return res.status(400).json({ success: false, error: 'points required' });
+    scoreState.totalScore += points;
+    res.json({ success: true, state: scoreState });
+});
+
+
+app.post('/api/score/reset', (req, res) => {
+    scoreState = { totalScore: 0 };
+    res.json({ success: true });
+});
+
+function proxmoxRequest(method, path) {
+    return new Promise((resolve, reject) => {
+        const options = {
+            hostname: PROXMOX_HOST,
+            port: PROXMOX_PORT,
+            path: `/api2/json${path}`,
+            method: method,
+            headers: {
+                'Authorization': `PVEAPIToken=${PROXMOX_USER}!${PROXMOX_TOKEN_NAME}=${PROXMOX_TOKEN_VALUE}`
+            },
+            rejectUnauthorized: false
+        };
+
+        const req = https.request(options, (res) => {
+            let data = '';
+            res.on('data', chunk => data += chunk);
+            res.on('end', () => {
+                try {
+                    resolve(JSON.parse(data));
+                } catch (err) {
+                    reject(err);
+                }
+            });
+        });
+
+        req.on('error', reject);
+        req.end();
+    });
 }
 
-//Run immediately
-checkAllServices();
-
-//Run every 5 seconds
-setInterval(checkAllServices, 5 * 1000);
-
-//API
-app.get("/api/status", (req, res) => {
-  const formattedStatus = {};
-  
-  services.forEach(service => {
-    const history = serviceHistory[service.name];
-    const latestCheck = history.checks[history.checks.length - 1];
-    
-    formattedStatus[service.name] = {
-      alive: latestCheck || false,
-      uptimePercent: calculateUptime(service.name)
-    };
-  });
-  
-  res.json(currentStatus);
+app.get('/api/proxmox/status', async (req, res) => {
+    try {
+        const result = await proxmoxRequest('GET', '/cluster/status');
+        res.json({ success: true, data: result });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
 });
 
-app.post("/api/reset", (req, res) => {
-  // Clear all service history
-  services.forEach(service => {
-    serviceHistory[service.name] = {
-      checks: [],
-      startTime: Date.now()
-    };
-  });
-  
-  currentStatus = {};
-  
-  console.log("Service history reset");
-  res.json({ success: true, message: "Service history reset" });
+app.get('/api/proxmox/nodes', async (req, res) => {
+    try {
+        const result = await proxmoxRequest('GET', '/nodes');
+        res.json({ success: true, data: result });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
 });
 
-// Start server
-app.listen(port, () => {
-  console.log(`Monitoring server running on http://localhost:${port}`);
+app.get('/api/proxmox/vms/:node', async (req, res) => {
+    try {
+        const result = await proxmoxRequest('GET', `/nodes/${req.params.node}/qemu`);
+        res.json({ success: true, data: result });
+    } catch (err) {
+        res.status(500).json({ success: false, error: err.message });
+    }
+});
+
+app.listen(3001, () => {
+    console.log('Server started on port 3001');
 });
