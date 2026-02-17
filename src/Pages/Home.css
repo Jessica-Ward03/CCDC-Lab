@@ -16,6 +16,9 @@
 .homePage h3{
     margin-left: 70px;
 }
+.homePage li{
+    margin-left: 150px;
+}
 
 .homePage h4{
     margin-left: 100px;
@@ -35,6 +38,7 @@
     margin-left: 130px;
     margin-bottom: 16px;
 }
+
 
 .homePageSubButton button{
   background-color: #7d120b;   

@@ -59,8 +59,27 @@ function TabGroup({ setTutorialMode, startTimer }) {
       case "How To Use":
         return (
           <div className="homePage">
-            <h4>How To Use?</h4>
-            <p>ToDo with images for examples?</p>
+            <h3>How To Use?</h3>
+            <ol>
+              <li>Click on the "Competition Mode" or "Tutorial Mode".</li>
+              <li>This will bring you to the inject page and start the timer.</li>
+              <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+                <img 
+                  src="HowTo1.png" alt="InjectPage" width="40%" margin-left="300px">
+                </img>
+              </div>
+              <p style={{ marginLeft: "200px" }}>To answer the inject click on the link to see it. Once your team completes the inject check the box.</p>
+              <li>To see the systems and how your score is click on the Scoreboard tab.</li>
+              <p style={{ marginLeft: "200px" }}>You may see something like the images below.</p>
+              <div style={{ display: 'flex', gap: '20px', justifyContent: 'center' }}>
+                <img src="HowTo2.png" alt="Scoreboard" width="30%" margin-left="300px"/>
+                <img src="HowTo3.png" alt="Scoreboard" width="30%" margin-left="300px"/>
+              </div>
+              <p style={{ marginLeft: "200px" }}>The first box shows the services up and your teams score. The second box shows which services are up. And the last box shows the services percent up times.</p>
+              <li>Score points by keeping services up.</li>
+              <li>Now that you understand these things, you are ready to enter the competition.</li>
+                <p style={{ marginLeft: "200px" }}> Good luck!</p>
+            </ol>
 
             <div className="homePageSubButton">
               <Link to="./Injects">
